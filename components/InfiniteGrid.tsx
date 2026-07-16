@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useVelocity } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import Tile from "./Tile";
 import { Project } from "@/lib/projects";
-import { GridConfig, cellHash, clamp } from "@/lib/grid";
+import { GridConfig, cellHash } from "@/lib/grid";
 
 interface InfiniteGridProps {
   grid: GridConfig;
@@ -25,16 +25,6 @@ export default function InfiniteGrid({
 
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
-
-  // Drag-direction tilt: derived from pointer velocity, smoothed through a
-  // spring so it eases toward the resting state as soon as the drag slows
-  // down or stops — no per-frame React state involved.
-  const velocityX = useVelocity(dragX);
-  const velocityY = useVelocity(dragY);
-  const smoothVX = useSpring(velocityX, { stiffness: 60, damping: 22, mass: 0.6 });
-  const smoothVY = useSpring(velocityY, { stiffness: 60, damping: 22, mass: 0.6 });
-  const tiltRX = useTransform(smoothVY, (v) => clamp(v * -0.0055, -7, 7));
-  const tiltRY = useTransform(smoothVX, (v) => clamp(v * 0.0055, -7, 7));
 
   const cells = useMemo(() => {
     const list: { cellIndex: number; col: number; row: number }[] = [];
@@ -78,8 +68,6 @@ export default function InfiniteGrid({
             project={getProject(row, col)}
             dragX={dragX}
             dragY={dragY}
-            tiltRX={tiltRX}
-            tiltRY={tiltRY}
             showTitleCard={cellHash(row, col, 5, 1) === 0}
             isOpen={cellIndex === openCellIndex}
             onOpen={onOpen}
