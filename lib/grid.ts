@@ -93,7 +93,10 @@ export function fisheyeCurve(x: number, y: number, maxDist: number): FisheyeResu
   const dist = Math.sqrt(x * x + y * y);
   const t = clamp(dist / maxDist, 0, 1);
   return {
-    extraRotate: t * 11,
+    // Rotation removed intentionally — tiles no longer tilt toward the
+    // grid edges. Only a gentle scale falloff remains for a hint of
+    // depth without any skew.
+    extraRotate: 0,
     scale: 1 - t * 0.1,
     dirX: dist === 0 ? 0 : x / dist,
     dirY: dist === 0 ? 0 : y / dist,
