@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------
    Design tokens
    Dark editorial base + one accent (acid lime, #D6FF3F). Corner labels on
-   tiles use a monospace stack â€” a small nod to timecodes / call-sheet
+   tiles use a monospace stack Ã¢â‚¬â€ a small nod to timecodes / call-sheet
    stamps from the production world this portfolio comes out of.
    ------------------------------------------------------------------- */
 :root {
@@ -146,7 +146,7 @@ a {
   pointer-events: none;
 }
 
-/* Meta rows live in their own black zones above/below the media â€” never
+/* Meta rows live in their own black zones above/below the media Ã¢â‚¬â€ never
    on top of it, so the thumbnail itself stays completely clean. */
 .tile-meta-top,
 .tile-meta-bottom {
@@ -221,7 +221,7 @@ a {
   transition: background 200ms ease, color 200ms ease;
 }
 
-/* The media frame â€” always the same box, regardless of the source
+/* The media frame Ã¢â‚¬â€ always the same box, regardless of the source
    aspect ratio. object-fit: contain means the image/video is never
    cropped: a portrait clip letterboxes with black bars instead of
    losing its edges, which is what keeps every tile feeling identical
@@ -989,7 +989,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About page (real route, not an overlay) â€” clean, minimal, scrolls
+   About page (real route, not an overlay) Ã¢â‚¬â€ clean, minimal, scrolls
    normally. Headings use Sora Variable (see app/about/page.tsx import).
    ------------------------------------------------------------------- */
 .about-page {
