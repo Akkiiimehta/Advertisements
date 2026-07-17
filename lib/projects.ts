@@ -4,9 +4,11 @@ export interface Project {
   id: string;
   youtubeId?: string;
   instagramUrl?: string;
+  coverImage?: string;
   title: string;
   brand: string;
   role: string;
+  roles?: string[];
   productionHouse: string;
   description: string;
   credits: string[];
@@ -14,6 +16,13 @@ export interface Project {
   year: number;
   tintColor?: string;
 }
+
+// Fixed set of roles you can filter by — kept as an explicit list rather
+// than derived from the data (like tags are), so the filter UI shows all
+// five options immediately instead of only appearing once a project
+// happens to use that value. Add a project's role(s) via its `roles`
+// array in projects.json using these exact strings.
+export const ROLE_OPTIONS = ["DA", "1st AD", "2nd AD", "Production Manager", "Associate Producer"] as const;
 
 // Auto-assigned accent palette used when a project doesn't specify its own
 // tintColor. Keeps new entries from projects.json looking intentional
@@ -33,6 +42,7 @@ const source = (raw as { projects: Project[] }).projects;
 
 export const projects: Project[] = source.map((p, i) => ({
   ...p,
+  roles: p.roles ?? [],
   tintColor: p.tintColor ?? PALETTE[i % PALETTE.length],
 }));
 
@@ -50,8 +60,15 @@ export function getProjectByCellIndex(cellIndex: number): Project {
 // post (instagramUrl, e.g. "https://www.instagram.com/reel/Cxxxxxxxxx/").
 // If both are set, YouTube wins for the thumbnail since it's the only one
 // with a reliable public thumbnail URL.
-
+//
+// coverImage overrides both — set it whenever the auto-generated YouTube
+// thumbnail looks wrong for the grid (e.g. a vertical/Shorts video whose
+// default thumbnail pads out the sides with a blurred, stretched copy of
+// itself). This only changes what shows in the grid tile; the modal
+// still plays the real video via getEmbedUrl, untouched by this field —
+// so setting a cleaner grid thumbnail never affects playback.
 export function getThumbnailUrl(project: Project): string | null {
+  if (project.coverImage) return project.coverImage;
   if (project.youtubeId) {
     return `https://img.youtube.com/vi/${project.youtubeId}/hqdefault.jpg`;
   }
