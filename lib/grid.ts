@@ -77,102 +77,65 @@ export function cellHash(row: number, col: number, mod: number, salt = 0): numbe
   return h % mod;
 }
 
-// Assigns a project to every (row, col) cell such that no two orthogonal
-// neighbors — including the wraparound seam that the infinite-pan illusion
-// stitches together — share the same brand. Falls back to the plain hash
-// pick only if every salted candidate happened to clash (practically never
-// happens with a handful of brands and a couple dozen salts to try).
-export function buildProjectGrid<T extends { brand: string }>(
-  projects: T[],
-  cols: number,
-  rows: number
-): T[][] {
-  const n = projects.length;
-  const grid: T[][] = Array.from({ length: rows }, () => new Array(cols));
-  if (n === 0) return grid;
+export interface HasBrand {
+  brand: string;
+}
 
-  const brandAt = (r: number, c: number): string | null => {
-    if (r < 0 || r >= rows || c < 0 || c >= cols) return null;
-    return grid[r][c]?.brand ?? null;
-  };
+// Assigns a project to every cell in the (cols x rows) grid such that no
+// cell shares a brand with its left or top neighbor, wherever that's
+// possible. Walks the grid in raster order pulling from a shuffled "bag"
+// of project indices (refilled and reshuffled whenever it empties) so
+// every project appears roughly evenly over the whole grid, not just
+// non-adjacently. Falls back to whatever's left in the bag if a cell has
+// no non-clashing option (e.g. only one or two brands total) rather than
+// stalling — a rare same-brand pair beats an infinite loop.
+//
+// Deterministic (fixed seed) so the layout doesn't reshuffle on every
+// re-render, only when the project set or grid size actually changes.
+export function buildGridAssignment<T extends HasBrand>(cols: number, rows: number, items: T[]): number[] {
+  const total = cols * rows;
+  const assignment = new Array<number>(total).fill(0);
+  if (items.length <= 1) return assignment;
 
-  const MAX_TRIES = Math.max(n * 4, 12);
-  // Neighbor offsets wrap with modulo, so a cell at col 0 checks col
-  // `cols - 1` directly and vice versa — this is what keeps the seam that
-  // the infinite-pan illusion stitches together brand-safe too, not just
-  // the interior of the visible grid.
-  const wrap = (v: number, span: number) => ((v % span) + span) % span;
+  let seed = 1;
+  const rand = () => seededRandom(seed++);
 
-  const neighborsOf = (r: number, c: number): (string | null)[] => {
-    const out: (string | null)[] = [];
-    if (cols > 1) {
-      out.push(brandAt(r, wrap(c - 1, cols)));
-      out.push(brandAt(r, wrap(c + 1, cols)));
+  function shuffledIndices(): number[] {
+    const arr = items.map((_, i) => i);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(rand() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    if (rows > 1) {
-      out.push(brandAt(wrap(r - 1, rows), c));
-      out.push(brandAt(wrap(r + 1, rows), c));
-    }
-    return out;
-  };
+    return arr;
+  }
 
-  const pick = (row: number, col: number, saltOffset: number, avoid: (string | null)[]): T => {
-    for (let salt = 0; salt < MAX_TRIES; salt++) {
-      const candidate = projects[cellHash(row, col, n, salt + saltOffset)];
-      if (!avoid.includes(candidate.brand)) return candidate;
-    }
-    return projects[cellHash(row, col, n, saltOffset)];
-  };
+  let bag = shuffledIndices();
 
-  // First pass: fill left-to-right, top-to-bottom, only weighed against
-  // already-placed neighbors (left/top), so the bulk of the grid is
-  // resolved in one shot.
   for (let row = 0; row < rows; row++) {
     for (let col = 0; col < cols; col++) {
-      const left = row < rows && col > 0 ? brandAt(row, col - 1) : null;
-      const top = row > 0 ? brandAt(row - 1, col) : null;
-      grid[row][col] = pick(row, col, 0, [left, top]);
+      const cellIndex = row * cols + col;
+      const leftBrand = col > 0 ? items[assignment[cellIndex - 1]].brand : undefined;
+      const topBrand = row > 0 ? items[assignment[cellIndex - cols]].brand : undefined;
+
+      if (bag.length === 0) bag = shuffledIndices();
+
+      let pickPos = bag.findIndex((idx) => items[idx].brand !== leftBrand && items[idx].brand !== topBrand);
+      if (pickPos === -1) pickPos = 0; // no clean option left — accept the clash rather than stall
+
+      assignment[cellIndex] = bag[pickPos];
+      bag.splice(pickPos, 1);
     }
   }
 
-  // Relaxation passes: the first pass can't see the wraparound seam (col 0
-  // vs col cols-1, row 0 vs row rows-1) or cells placed after it, so a few
-  // rounds checking every neighbor (with wraparound) catch and repair any
-  // leftover clash — most commonly at the corners where a row-seam fix and
-  // a column-seam fix would otherwise overlap.
-  for (let round = 0; round < 4; round++) {
-    let changed = false;
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const neighborBrands = neighborsOf(row, col);
-        if (!neighborBrands.includes(grid[row][col].brand)) continue;
-        grid[row][col] = pick(row, col, round * 97 + 13, neighborBrands);
-        changed = true;
-      }
-    }
-    if (!changed) break;
-  }
-
-  return grid;
+  return assignment;
 }
 
 export interface FisheyeResult {
   extraRotate: number;
-  rotateX: number;
-  rotateY: number;
   dirX: number;
   dirY: number;
   scale: number;
 }
-
-// Max tilt (degrees) applied to the tile furthest from the viewport
-// center. This is what actually reads as "curved surface" rather than
-// "flat wall" — scale alone only tells the eye something is further
-// away, it doesn't tell the eye the surface is turning. Paired with the
-// `perspective` set on the grid container, a tile rotated on X/Y around
-// its own (already-translated) origin appears to tilt away exactly like
-// a patch on the inside of a sphere would.
-const MAX_TILT_DEG = 22;
 
 // Distance-based curve: rotation + compression increase the further a
 // tile sits from the viewport center, on top of its own base jitter.
@@ -182,16 +145,13 @@ const MAX_TILT_DEG = 22;
 export function fisheyeCurve(x: number, y: number, maxDist: number): FisheyeResult {
   const dist = Math.sqrt(x * x + y * y);
   const t = clamp(dist / maxDist, 0, 1);
-  const dirX = dist === 0 ? 0 : x / dist;
-  const dirY = dist === 0 ? 0 : y / dist;
   return {
+    // Rotation removed intentionally — tiles no longer tilt toward the
+    // grid edges. Only a gentle scale falloff remains for a hint of
+    // depth without any skew.
     extraRotate: 0,
-    // A tile to the right (+x) turns away around the vertical axis;
-    // a tile below center (+y) turns away around the horizontal axis.
-    rotateY: dirX * t * MAX_TILT_DEG,
-    rotateX: -dirY * t * MAX_TILT_DEG,
     scale: 1 - t * 0.1,
-    dirX,
-    dirY,
+    dirX: dist === 0 ? 0 : x / dist,
+    dirY: dist === 0 ? 0 : y / dist,
   };
 }
