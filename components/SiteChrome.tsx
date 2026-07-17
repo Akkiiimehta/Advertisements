@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ViewMode } from "./types";
 
@@ -10,6 +11,8 @@ interface SiteChromeProps {
   activeFilterCount: number;
   activeNav: "work" | "about" | "contact";
   onNavChange: (nav: "work" | "about" | "contact") => void;
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 }
 
 export default function SiteChrome({
@@ -19,10 +22,43 @@ export default function SiteChrome({
   activeFilterCount,
   activeNav,
   onNavChange,
+  searchQuery,
+  onSearchChange,
 }: SiteChromeProps) {
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  function closeSearch() {
+    setSearchOpen(false);
+    onSearchChange("");
+  }
+
   return (
     <div className="chrome" aria-hidden={false}>
       <div className="chrome-corner chrome-top-left">
+        <div className="search-control" data-open={searchOpen}>
+          <button
+            type="button"
+            className="search-icon-btn"
+            aria-label={searchOpen ? "Close search" : "Search projects"}
+            aria-expanded={searchOpen}
+            onClick={() => (searchOpen ? closeSearch() : setSearchOpen(true))}
+          >
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <circle cx="6" cy="6" r="4.4" stroke="currentColor" strokeWidth="1.4" />
+              <line x1="9.3" y1="9.3" x2="13" y2="13" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            </svg>
+          </button>
+          <input
+            className="search-input"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            onKeyDown={(e) => e.key === "Escape" && closeSearch()}
+            placeholder="Search brand or project"
+            aria-label="Search projects"
+            tabIndex={searchOpen ? 0 : -1}
+          />
+        </div>
         <span className="wordmark">YM&nbsp;/&nbsp;RIVTARA</span>
       </div>
 
