@@ -7,6 +7,16 @@ export interface GridConfig {
   rows: number;
   tileW: number;
   tileH: number;
+  // Reference distance-from-center the fisheye curve ramps up over.
+  // Deliberately NOT derived from cols*tileW/rows*tileH (the full virtual
+  // grid) — that grid is much bigger than any real screen, so a curve
+  // calibrated to its half-diagonal barely registers within an actual
+  // viewport (you'd have to drag most of the way to the grid's true edge
+  // to see meaningful rotation). This is tuned instead to roughly half a
+  // real screen's diagonal at each breakpoint, so the curve is clearly
+  // visible at the edges of an ordinary window, not just far out toward
+  // tiles you'd rarely scroll to.
+  curveDist: number;
 }
 
 // Tiles render this many px larger than their grid spacing (centered via
@@ -14,8 +24,8 @@ export interface GridConfig {
 // never reveals a hairline gap between neighbors.
 export const TILE_OVERLAP = 2;
 
-export const DESKTOP_GRID: GridConfig = { cols: 10, rows: 8, tileW: 420, tileH: 300 };
-export const MOBILE_GRID: GridConfig = { cols: 5, rows: 6, tileW: 220, tileH: 160 };
+export const DESKTOP_GRID: GridConfig = { cols: 10, rows: 8, tileW: 420, tileH: 300, curveDist: 780 };
+export const MOBILE_GRID: GridConfig = { cols: 5, rows: 6, tileW: 220, tileH: 160, curveDist: 360 };
 export const MOBILE_BREAKPOINT = 720;
 
 export function clamp(value: number, min: number, max: number): number {
@@ -175,8 +185,8 @@ export function fisheyeCurve(x: number, y: number, maxDist: number): FisheyeResu
   // starting right from dead-center.
   const eased = t * t * t;
   return {
-    extraRotate: eased * 16,
-    scale: 1 - eased * 0.12,
+    extraRotate: eased * 22,
+    scale: 1 - eased * 0.16,
     dirX: dist === 0 ? 0 : x / dist,
     dirY: dist === 0 ? 0 : y / dist,
   };
