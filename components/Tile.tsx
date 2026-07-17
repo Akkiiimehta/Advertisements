@@ -48,8 +48,10 @@ export default function Tile({
   const transform = useTransform([wrappedX, wrappedY, hoverScale], (values) => {
     const [wx, wy, hs] = values as number[];
     const curve = fisheyeCurve(wx, wy, maxDist);
+    const rotateX = curve.extraRotate * -curve.dirY;
+    const rotateY = curve.extraRotate * curve.dirX;
     const scale = curve.scale * hs;
-    return `translate3d(${wx}px, ${wy}px, 0) scale(${scale})`;
+    return `translate3d(${wx}px, ${wy}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
   });
 
   function handlePointerEnter() {
@@ -111,7 +113,6 @@ export default function Tile({
                 loading="lazy"
               />
             )}
-            <div className="tile-tint" aria-hidden />
           </div>
 
           <div className="tile-meta-bottom">
