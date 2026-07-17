@@ -6,11 +6,25 @@ interface FilterPanelProps {
   tags: string[];
   activeTags: string[];
   onToggle: (tag: string) => void;
+  roles: readonly string[];
+  activeRoles: string[];
+  onToggleRole: (role: string) => void;
   onClear: () => void;
   onClose: () => void;
 }
 
-export default function FilterPanel({ tags, activeTags, onToggle, onClear, onClose }: FilterPanelProps) {
+export default function FilterPanel({
+  tags,
+  activeTags,
+  onToggle,
+  roles,
+  activeRoles,
+  onToggleRole,
+  onClear,
+  onClose,
+}: FilterPanelProps) {
+  const hasActive = activeTags.length > 0 || activeRoles.length > 0;
+
   return (
     <>
       <motion.div
@@ -29,7 +43,7 @@ export default function FilterPanel({ tags, activeTags, onToggle, onClear, onClo
       >
         <div className="filter-panel-header">
           <span>Filter by category</span>
-          <button className="filter-clear" onClick={onClear} disabled={activeTags.length === 0}>
+          <button className="filter-clear" onClick={onClear} disabled={!hasActive}>
             Clear
           </button>
         </div>
@@ -42,6 +56,22 @@ export default function FilterPanel({ tags, activeTags, onToggle, onClear, onClo
               aria-pressed={activeTags.includes(tag)}
             >
               {tag}
+            </button>
+          ))}
+        </div>
+
+        <div className="filter-panel-header filter-panel-subheader">
+          <span>Filter by role</span>
+        </div>
+        <div className="filter-tags">
+          {roles.map((role) => (
+            <button
+              key={role}
+              className={`filter-tag ${activeRoles.includes(role) ? "active" : ""}`}
+              onClick={() => onToggleRole(role)}
+              aria-pressed={activeRoles.includes(role)}
+            >
+              {role}
             </button>
           ))}
         </div>
