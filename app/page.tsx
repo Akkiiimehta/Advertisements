@@ -11,7 +11,7 @@ import ProjectModal from "@/components/ProjectModal";
 import InfoOverlay from "@/components/InfoOverlay";
 import { ViewMode, NavItem } from "@/components/types";
 import { allTags, projects, Project } from "@/lib/projects";
-import { buildProjectGrid } from "@/lib/grid";
+import { cellHash } from "@/lib/grid";
 import { useGridConfig } from "@/hooks/useGridConfig";
 
 export default function Home() {
@@ -34,17 +34,9 @@ export default function Home() {
     return filtered.length > 0 ? filtered : projects;
   }, [activeTags]);
 
-  // Precomputed once per filter/grid-size change so that neighboring cells
-  // (including the wraparound seam) never land on the same brand — see
-  // buildProjectGrid in lib/grid.ts.
-  const projectGrid = useMemo(
-    () => buildProjectGrid(filteredProjects, grid.cols, grid.rows),
-    [filteredProjects, grid.cols, grid.rows]
-  );
-
   const getProject = useCallback(
-    (row: number, col: number) => projectGrid[row][col],
-    [projectGrid]
+    (row: number, col: number) => filteredProjects[cellHash(row, col, filteredProjects.length)],
+    [filteredProjects]
   );
 
   function handleOpen(project: Project, layoutId: string, cellIndex: number | null = null) {
