@@ -38,9 +38,7 @@ export default function Tile({
   const baseX = (col - cols / 2) * tileW + tileW / 2;
   const baseY = (row - rows / 2) * tileH + tileH / 2;
 
-  // Hover feedback is a soft scale bump only, layered on top of whatever
-  // globe tilt the tile already has from its grid position (see
-  // fisheyeCurve below) — hover itself adds no additional rotation.
+  // Hover feedback is a soft scale bump only — no rotation/tilt.
   const hoverScale = useMotionValue(1);
   const hovering = useRef(false);
 
@@ -51,7 +49,7 @@ export default function Tile({
     const [wx, wy, hs] = values as number[];
     const curve = fisheyeCurve(wx, wy, maxDist);
     const scale = curve.scale * hs;
-    return `translate3d(${wx}px, ${wy}px, 0) rotateX(${curve.rotateX}deg) rotateY(${curve.rotateY}deg) scale(${scale})`;
+    return `translate3d(${wx}px, ${wy}px, 0) scale(${scale})`;
   });
 
   function handlePointerEnter() {
@@ -113,6 +111,7 @@ export default function Tile({
                 loading="lazy"
               />
             )}
+            <div className="tile-tint" aria-hidden />
           </div>
 
           <div className="tile-meta-bottom">
