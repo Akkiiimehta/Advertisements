@@ -145,12 +145,15 @@ export interface FisheyeResult {
 export function fisheyeCurve(x: number, y: number, maxDist: number): FisheyeResult {
   const dist = Math.sqrt(x * x + y * y);
   const t = clamp(dist / maxDist, 0, 1);
+  // Cubic ease-in: near-zero through the center third of the grid, then
+  // ramps up quickly toward the outer edge. This is what keeps the
+  // middle of the canvas reading as flat while the rim curves away like
+  // the inside of a sphere, instead of every tile tilting a little bit
+  // starting right from dead-center.
+  const eased = t * t * t;
   return {
-    // Rotation removed intentionally — tiles no longer tilt toward the
-    // grid edges. Only a gentle scale falloff remains for a hint of
-    // depth without any skew.
-    extraRotate: 0,
-    scale: 1 - t * 0.1,
+    extraRotate: eased * 16,
+    scale: 1 - eased * 0.12,
     dirX: dist === 0 ? 0 : x / dist,
     dirY: dist === 0 ? 0 : y / dist,
   };
