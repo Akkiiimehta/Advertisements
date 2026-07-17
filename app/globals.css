@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------
    Design tokens
    Dark editorial base + one accent (acid lime, #D6FF3F). Corner labels on
-   tiles use a monospace stack Ã¢â‚¬â€ a small nod to timecodes / call-sheet
+   tiles use a monospace stack â€” a small nod to timecodes / call-sheet
    stamps from the production world this portfolio comes out of.
    ------------------------------------------------------------------- */
 :root {
@@ -139,6 +139,14 @@ a {
   flex-direction: column;
   pointer-events: auto;
   background: #000;
+  border-right: 1px solid rgba(255, 255, 255, 0.13);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  transition: background-color 260ms ease;
+}
+
+.tile:hover,
+.tile:focus-visible {
+  background: color-mix(in srgb, var(--tile-tint, var(--accent)) 45%, #000 55%);
 }
 
 .tile-placeholder {
@@ -146,7 +154,7 @@ a {
   pointer-events: none;
 }
 
-/* Meta rows live in their own black zones above/below the media Ã¢â‚¬â€ never
+/* Meta rows live in their own black zones above/below the media â€” never
    on top of it, so the thumbnail itself stays completely clean. */
 .tile-meta-top,
 .tile-meta-bottom {
@@ -221,7 +229,7 @@ a {
   transition: background 200ms ease, color 200ms ease;
 }
 
-/* The media frame Ã¢â‚¬â€ always the same box, regardless of the source
+/* The media frame â€” always the same box, regardless of the source
    aspect ratio. object-fit: contain means the image/video is never
    cropped: a portrait clip letterboxes with black bars instead of
    losing its edges, which is what keeps every tile feeling identical
@@ -235,6 +243,12 @@ a {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: background-color 260ms ease;
+}
+
+.tile:hover .tile-media,
+.tile:focus-visible .tile-media {
+  background: color-mix(in srgb, var(--tile-tint, var(--accent)) 45%, #000 55%);
 }
 
 .tile-thumb {
@@ -249,7 +263,7 @@ a {
 
 .tile-titlecard {
   position: absolute;
-  inset: 0;
+  inset: 8%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -266,21 +280,6 @@ a {
   line-height: 1.02;
   color: var(--accent-ink);
   text-align: center;
-}
-
-.tile-tint {
-  position: absolute;
-  inset: 0;
-  background: var(--tile-tint, var(--accent));
-  mix-blend-mode: color;
-  opacity: 0;
-  transition: opacity 200ms ease;
-  pointer-events: none;
-}
-
-.tile:hover .tile-tint,
-.tile:focus-visible .tile-tint {
-  opacity: 0.4;
 }
 
 .tile:hover .tile-brand,
@@ -318,6 +317,74 @@ a {
 .chrome-top-left {
   top: 20px;
   left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-control {
+  display: flex;
+  align-items: center;
+}
+
+.search-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(9, 9, 11, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  z-index: 1;
+}
+
+.search-icon-btn:hover,
+.search-icon-btn:focus-visible {
+  color: var(--fg);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.search-control[data-open="true"] .search-icon-btn {
+  color: var(--fg);
+  background: rgba(9, 9, 11, 0.75);
+}
+
+.search-input {
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  background: rgba(9, 9, 11, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 999px;
+  height: 32px;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  transition: width 240ms ease, opacity 180ms ease, padding 240ms ease, margin-left 240ms ease;
+  pointer-events: none;
+}
+
+.search-input::placeholder {
+  color: var(--fg-faint);
+}
+
+.search-control[data-open="true"] .search-input {
+  width: 220px;
+  opacity: 1;
+  padding: 0 16px;
+  margin-left: 8px;
+  border-color: var(--border);
+  pointer-events: auto;
 }
 
 .chrome-top-center {
@@ -927,6 +994,10 @@ a {
     left: 14px;
   }
 
+  .search-control[data-open="true"] .search-input {
+    width: min(52vw, 180px);
+  }
+
   .chrome-top-right {
     top: 14px;
     right: 14px;
@@ -989,7 +1060,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About page (real route, not an overlay) Ã¢â‚¬â€ clean, minimal, scrolls
+   About page (real route, not an overlay) â€” clean, minimal, scrolls
    normally. Headings use Sora Variable (see app/about/page.tsx import).
    ------------------------------------------------------------------- */
 .about-page {
