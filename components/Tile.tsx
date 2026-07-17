@@ -30,10 +30,9 @@ export default function Tile({
   isOpen,
   onOpen,
 }: TileProps) {
-  const { cols, rows, tileW, tileH } = grid;
+  const { cols, rows, tileW, tileH, curveDist } = grid;
   const gridW = cols * tileW;
   const gridH = rows * tileH;
-  const maxDist = Math.max(gridW, gridH) / 2;
 
   const baseX = (col - cols / 2) * tileW + tileW / 2;
   const baseY = (row - rows / 2) * tileH + tileH / 2;
@@ -47,7 +46,7 @@ export default function Tile({
 
   const transform = useTransform([wrappedX, wrappedY, hoverScale], (values) => {
     const [wx, wy, hs] = values as number[];
-    const curve = fisheyeCurve(wx, wy, maxDist);
+    const curve = fisheyeCurve(wx, wy, curveDist);
     const rotateX = curve.extraRotate * -curve.dirY;
     const rotateY = curve.extraRotate * curve.dirX;
     const scale = curve.scale * hs;
