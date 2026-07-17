@@ -59,7 +59,7 @@ export default function SiteChrome({
             tabIndex={searchOpen ? 0 : -1}
           />
         </div>
-        <span className="wordmark">YM&nbsp;/&nbsp;RIVTARA</span>
+      <span className="wordmark">AKI</span>
       </div>
 
       <div className="chrome-corner chrome-top-center">
