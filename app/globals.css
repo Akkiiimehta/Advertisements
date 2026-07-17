@@ -139,6 +139,7 @@ a {
   flex-direction: column;
   pointer-events: auto;
   background: #000;
+  border: 1px solid rgba(244, 243, 238, 0.08);
 }
 
 .tile-placeholder {
@@ -222,27 +223,39 @@ a {
 }
 
 /* The media frame Ã¢â‚¬â€ always the same box, regardless of the source
-   aspect ratio. object-fit: contain means the image/video is never
-   cropped: a portrait clip letterboxes with black bars instead of
-   losing its edges, which is what keeps every tile feeling identical
-   even though the underlying content isn't. */
+   aspect ratio. A fixed padding here (not on the children) is what
+   creates a consistent black frame margin around EVERY tile's content,
+   photo or title card alike, so a title card never reads as a
+   different size than a thumbnail next to it. object-fit: cover on the
+   thumbnail then fills that fixed inner box edge-to-edge every time Ã¢â‚¬â€
+   contain would let each video's own baked-in aspect ratio/padding
+   dictate how much of the box the image actually fills, which is what
+   made two photo tiles look like different sizes next to each other. */
 .tile-media {
   position: relative;
   flex: 1;
   min-height: 0;
+  padding: 4%;
+  box-sizing: border-box;
   background: #000;
+  transition: background-color 200ms ease;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
+.tile:hover .tile-media,
+.tile:focus-visible .tile-media {
+  background-color: #f4f3ee;
+}
+
 .tile-thumb {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: auto;
+  height: auto;
+  object-fit: cover;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -266,21 +279,6 @@ a {
   line-height: 1.02;
   color: var(--accent-ink);
   text-align: center;
-}
-
-.tile-tint {
-  position: absolute;
-  inset: 0;
-  background: var(--tile-tint, var(--accent));
-  mix-blend-mode: color;
-  opacity: 0;
-  transition: opacity 200ms ease;
-  pointer-events: none;
-}
-
-.tile:hover .tile-tint,
-.tile:focus-visible .tile-tint {
-  opacity: 0.4;
 }
 
 .tile:hover .tile-brand,
