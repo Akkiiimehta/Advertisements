@@ -139,14 +139,13 @@ a {
   flex-direction: column;
   pointer-events: auto;
   background: #000;
-  border-right: 1px solid rgba(255, 255, 255, 0.13);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.13);
   transition: background-color 260ms ease;
 }
 
 .tile:hover,
 .tile:focus-visible {
-  background: color-mix(in srgb, var(--tile-tint, var(--accent)) 45%, #000 55%);
+  background: #d9d3cc;
 }
 
 .tile-placeholder {
@@ -248,7 +247,7 @@ a {
 
 .tile:hover .tile-media,
 .tile:focus-visible .tile-media {
-  background: color-mix(in srgb, var(--tile-tint, var(--accent)) 45%, #000 55%);
+  background: #d9d3cc;
 }
 
 .tile-thumb {
@@ -286,17 +285,18 @@ a {
 .tile:hover .tile-name,
 .tile:focus-visible .tile-brand,
 .tile:focus-visible .tile-name {
-  color: #fff;
+  color: #0c0c0d;
 }
 
-.tile:hover .tile-year {
-  color: rgba(244, 243, 238, 0.7);
+.tile:hover .tile-year,
+.tile:focus-visible .tile-year {
+  color: rgba(12, 12, 13, 0.7);
 }
 
 .tile:hover .tile-tag,
 .tile:focus-visible .tile-tag {
-  background: #f4f3ee;
-  color: #0c0c0d;
+  background: #0c0c0d;
+  color: #f4f3ee;
 }
 
 /* ---------------------------------------------------------------------
