@@ -11,7 +11,7 @@ import ProjectModal from "@/components/ProjectModal";
 import InfoOverlay from "@/components/InfoOverlay";
 import { ViewMode, NavItem } from "@/components/types";
 import { allTags, projects, Project } from "@/lib/projects";
-import { cellHash } from "@/lib/grid";
+import { buildGridAssignment } from "@/lib/grid";
 import { useGridConfig } from "@/hooks/useGridConfig";
 
 export default function Home() {
@@ -20,6 +20,7 @@ export default function Home() {
   const [nav, setNav] = useState<NavItem>("work");
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<{ project: Project; layoutId: string; cellIndex: number | null } | null>(
     null
   );
@@ -27,16 +28,31 @@ export default function Home() {
   const grid = useGridConfig();
 
   const filteredProjects = useMemo(() => {
-    if (activeTags.length === 0) return projects;
-    const filtered = projects.filter((p) => activeTags.some((t) => p.tags.includes(t)));
-    // never show an empty grid — fall back to the full set if a filter
-    // combination happens to match nothing
-    return filtered.length > 0 ? filtered : projects;
-  }, [activeTags]);
+    let result = projects;
+    if (activeTags.length > 0) {
+      const byTag = projects.filter((p) => activeTags.some((t) => p.tags.includes(t)));
+      if (byTag.length > 0) result = byTag;
+    }
+    const query = searchQuery.trim().toLowerCase();
+    if (query) {
+      const bySearch = result.filter(
+        (p) => p.brand.toLowerCase().includes(query) || p.title.toLowerCase().includes(query)
+      );
+      if (bySearch.length > 0) result = bySearch;
+    }
+    // never show an empty grid — fall back to the widest matching set
+    // if the current filter/search combination happens to match nothing
+    return result;
+  }, [activeTags, searchQuery]);
+
+  const assignment = useMemo(
+    () => buildGridAssignment(grid.cols, grid.rows, filteredProjects),
+    [grid.cols, grid.rows, filteredProjects]
+  );
 
   const getProject = useCallback(
-    (row: number, col: number) => filteredProjects[cellHash(row, col, filteredProjects.length)],
-    [filteredProjects]
+    (row: number, col: number) => filteredProjects[assignment[row * grid.cols + col]],
+    [filteredProjects, assignment, grid.cols]
   );
 
   function handleOpen(project: Project, layoutId: string, cellIndex: number | null = null) {
@@ -79,6 +95,8 @@ export default function Home() {
             activeFilterCount={activeTags.length}
             activeNav={nav}
             onNavChange={handleNavChange}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
 
           <AnimatePresence>
