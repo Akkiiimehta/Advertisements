@@ -10,7 +10,7 @@ import FilterPanel from "@/components/FilterPanel";
 import ProjectModal from "@/components/ProjectModal";
 import InfoOverlay from "@/components/InfoOverlay";
 import { ViewMode, NavItem } from "@/components/types";
-import { allTags, projects, Project } from "@/lib/projects";
+import { allTags, projects, Project, ROLE_OPTIONS } from "@/lib/projects";
 import { buildGridAssignment } from "@/lib/grid";
 import { useGridConfig } from "@/hooks/useGridConfig";
 
@@ -20,6 +20,7 @@ export default function Home() {
   const [nav, setNav] = useState<NavItem>("work");
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [activeRoles, setActiveRoles] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selected, setSelected] = useState<{ project: Project; layoutId: string; cellIndex: number | null } | null>(
     null
@@ -30,8 +31,12 @@ export default function Home() {
   const filteredProjects = useMemo(() => {
     let result = projects;
     if (activeTags.length > 0) {
-      const byTag = projects.filter((p) => activeTags.some((t) => p.tags.includes(t)));
+      const byTag = result.filter((p) => activeTags.some((t) => p.tags.includes(t)));
       if (byTag.length > 0) result = byTag;
+    }
+    if (activeRoles.length > 0) {
+      const byRole = result.filter((p) => activeRoles.some((r) => p.roles?.includes(r)));
+      if (byRole.length > 0) result = byRole;
     }
     const query = searchQuery.trim().toLowerCase();
     if (query) {
@@ -43,7 +48,7 @@ export default function Home() {
     // never show an empty grid — fall back to the widest matching set
     // if the current filter/search combination happens to match nothing
     return result;
-  }, [activeTags, searchQuery]);
+  }, [activeTags, activeRoles, searchQuery]);
 
   const assignment = useMemo(
     () => buildGridAssignment(grid.cols, grid.rows, filteredProjects),
@@ -61,6 +66,10 @@ export default function Home() {
 
   function toggleTag(tag: string) {
     setActiveTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  }
+
+  function toggleRole(role: string) {
+    setActiveRoles((prev) => (prev.includes(role) ? prev.filter((r) => r !== role) : [...prev, role]));
   }
 
   function handleNavChange(item: NavItem) {
@@ -92,7 +101,7 @@ export default function Home() {
             view={view}
             onViewChange={setView}
             onFilterClick={() => setFilterOpen((v) => !v)}
-            activeFilterCount={activeTags.length}
+            activeFilterCount={activeTags.length + activeRoles.length}
             activeNav={nav}
             onNavChange={handleNavChange}
             searchQuery={searchQuery}
@@ -105,7 +114,13 @@ export default function Home() {
                 tags={allTags}
                 activeTags={activeTags}
                 onToggle={toggleTag}
-                onClear={() => setActiveTags([])}
+                roles={ROLE_OPTIONS}
+                activeRoles={activeRoles}
+                onToggleRole={toggleRole}
+                onClear={() => {
+                  setActiveTags([]);
+                  setActiveRoles([]);
+                }}
                 onClose={() => setFilterOpen(false)}
               />
             )}
