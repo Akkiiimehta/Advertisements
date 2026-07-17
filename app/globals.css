@@ -585,6 +585,10 @@ a {
   margin-bottom: 12px;
 }
 
+.filter-panel-subheader {
+  margin-top: 16px;
+}
+
 .filter-clear {
   color: var(--accent);
   font-family: var(--font-mono);
