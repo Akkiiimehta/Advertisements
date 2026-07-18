@@ -81,27 +81,28 @@ export interface HasBrand {
   brand: string;
 }
 
-// Assigns a project to every cell in the (cols x rows) grid such that no
-// cell shares a brand with its left or top neighbor, wherever that's
-// possible.
+// Assigns a project to every cell in the (cols x rows) grid such that:
 //
-// At each cell, this picks live — not from a precomputed sequence —
-// whichever brand has gone the longest without being placed, filtered
-// down to brands that won't clash with this cell's left/top neighbor.
-// That combination (recency-based fairness + a live neighbor check)
-// keeps a dominant brand spread evenly across the whole grid instead of
-// clustering, and only produces a same-brand pair when it's genuinely
-// unavoidable (i.e. one brand is more than half the catalog). A
-// precomputed queue — round-robin or otherwise — can't react to the
-// actual neighbors it lands next to; deciding at the moment of
-// placement can.
+// 1. Every project appears at least once as close to the grid's CENTER
+//    as possible — the center is where the page actually lands on load,
+//    so this is what makes the whole catalog visible up front instead
+//    of some projects only turning up after dragging around by chance.
+// 2. Only once every project has appeared once does the algorithm start
+//    repeating projects to fill the remaining cells further out.
+// 3. No cell shares a brand with an already-placed neighbor, wherever
+//    that's possible — checked against all 4 neighbors (not just
+//    left/top), since cells are no longer filled in raster order.
+//
+// This processes cells sorted by distance from center (ties broken by a
+// seeded shuffle) rather than row-by-row, which is what makes point 1
+// possible — a raster walk has no way to prioritize "near the middle."
 //
 // Deterministic (fixed seed) so the layout doesn't reshuffle on every
-// re-render, only when the project set or grid size actually changes.
+// re-render — only when the project set or grid size actually changes.
 export function buildGridAssignment<T extends HasBrand>(cols: number, rows: number, items: T[]): number[] {
   const total = cols * rows;
-  const assignment = new Array<number>(total).fill(0);
-  if (items.length <= 1) return assignment;
+  const assignment = new Array<number>(total).fill(-1);
+  if (items.length <= 1) return assignment.fill(0);
 
   let seed = 1;
   const rand = () => seededRandom(seed++);
@@ -115,6 +116,20 @@ export function buildGridAssignment<T extends HasBrand>(cols: number, rows: numb
     return out;
   }
 
+  // Cells ordered by distance from grid center, ties shuffled for
+  // variety rather than defaulting to raster order.
+  const centerCol = (cols - 1) / 2;
+  const centerRow = (rows - 1) / 2;
+  const cellsByDistance = shuffle(Array.from({ length: total }, (_, i) => i)).sort((a, b) => {
+    const rowA = Math.floor(a / cols);
+    const colA = a % cols;
+    const rowB = Math.floor(b / cols);
+    const colB = b % cols;
+    const distA = (rowA - centerRow) ** 2 + (colA - centerCol) ** 2;
+    const distB = (rowB - centerRow) ** 2 + (colB - centerCol) ** 2;
+    return distA - distB;
+  });
+
   const brands = shuffle(Array.from(new Set(items.map((i) => i.brand))));
   const indicesByBrand = new Map<string, number[]>(
     brands.map((b) => [b, items.map((it, i) => (it.brand === b ? i : -1)).filter((i) => i !== -1)])
@@ -122,32 +137,57 @@ export function buildGridAssignment<T extends HasBrand>(cols: number, rows: numb
   const queues = new Map<string, number[]>(brands.map((b) => [b, shuffle(indicesByBrand.get(b)!)]));
   const lastUsedStep = new Map<string, number>(brands.map((b) => [b, -Infinity]));
 
-  function takeFromBrand(brand: string): number {
+  // Every project index, not yet placed even once. Drained before any
+  // repeats happen.
+  let unusedPool = shuffle(items.map((_, i) => i));
+
+  function removeFromQueue(brand: string, idx: number) {
+    const q = queues.get(brand)!;
+    const pos = q.indexOf(idx);
+    if (pos !== -1) q.splice(pos, 1);
+  }
+
+  function takeRepeatFromBrand(brand: string): number {
     const q = queues.get(brand)!;
     if (q.length === 0) queues.set(brand, shuffle(indicesByBrand.get(brand)!));
     return queues.get(brand)!.shift()!;
   }
 
-  let step = 0;
-  for (let row = 0; row < rows; row++) {
-    for (let col = 0; col < cols; col++) {
-      const cellIndex = row * cols + col;
-      const leftBrand = col > 0 ? items[assignment[cellIndex - 1]].brand : undefined;
-      const topBrand = row > 0 ? items[assignment[cellIndex - cols]].brand : undefined;
+  function neighborBrands(cellIndex: number): string[] {
+    const row = Math.floor(cellIndex / cols);
+    const col = cellIndex % cols;
+    const out: string[] = [];
+    if (col > 0 && assignment[cellIndex - 1] !== -1) out.push(items[assignment[cellIndex - 1]].brand);
+    if (col < cols - 1 && assignment[cellIndex + 1] !== -1) out.push(items[assignment[cellIndex + 1]].brand);
+    if (row > 0 && assignment[cellIndex - cols] !== -1) out.push(items[assignment[cellIndex - cols]].brand);
+    if (row < rows - 1 && assignment[cellIndex + cols] !== -1) out.push(items[assignment[cellIndex + cols]].brand);
+    return out;
+  }
 
-      // Candidates that won't clash, ordered so brands shuffled earlier
-      // break ties randomly rather than always losing to array order —
-      // then sorted so whichever brand is most "overdue" wins.
-      let candidates = shuffle(brands.filter((b) => b !== leftBrand && b !== topBrand));
+  let step = 0;
+  for (const cellIndex of cellsByDistance) {
+    const blocked = neighborBrands(cellIndex);
+
+    if (unusedPool.length > 0) {
+      let pick = unusedPool.find((idx) => !blocked.includes(items[idx].brand));
+      if (pick === undefined) pick = unusedPool[0];
+
+      assignment[cellIndex] = pick;
+      unusedPool.splice(unusedPool.indexOf(pick), 1);
+      const brand = items[pick].brand;
+      removeFromQueue(brand, pick); // keep the repeat-queue in sync
+      lastUsedStep.set(brand, step);
+    } else {
+      let candidates = shuffle(brands.filter((b) => !blocked.includes(b)));
       if (candidates.length === 0) candidates = shuffle(brands); // every brand clashes — only 1-2 brands total
 
       candidates.sort((a, b) => lastUsedStep.get(a)! - lastUsedStep.get(b)!);
       const chosenBrand = candidates[0];
 
-      assignment[cellIndex] = takeFromBrand(chosenBrand);
+      assignment[cellIndex] = takeRepeatFromBrand(chosenBrand);
       lastUsedStep.set(chosenBrand, step);
-      step++;
     }
+    step++;
   }
 
   return assignment;
