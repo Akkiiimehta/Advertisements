@@ -7,31 +7,15 @@ export interface GridConfig {
   rows: number;
   tileW: number;
   tileH: number;
-  // Reference distance-from-center the fisheye curve ramps up over.
-  // Deliberately NOT derived from cols*tileW/rows*tileH (the full virtual
-  // grid) — that grid is much bigger than any real screen, so a curve
-  // calibrated to its half-diagonal barely registers within an actual
-  // viewport (you'd have to drag most of the way to the grid's true edge
-  // to see meaningful rotation). This is tuned instead to roughly half a
-  // real screen's diagonal at each breakpoint, so the curve is clearly
-  // visible at the edges of an ordinary window, not just far out toward
-  // tiles you'd rarely scroll to.
-  curveDist: number;
 }
 
 // Tiles render this many px larger than their grid spacing (centered via
-// negative offset) so the very slight curvature that's still applied
-// never reveals a hairline gap between neighbors.
-// The perspective value applied to .grid-tiles (see InfiniteGrid.tsx).
-// Kept here as the single source of truth because Tile.tsx needs this
-// exact number to compensate for perspective's own position-shrinking —
-// see the comment on `depth` below.
-export const PERSPECTIVE = 1400;
+// negative offset) so rounding/subpixel rendering never reveals a
+// hairline gap between neighbors.
+export const TILE_OVERLAP = 2;
 
-export const TILE_OVERLAP = 4;
-
-export const DESKTOP_GRID: GridConfig = { cols: 10, rows: 8, tileW: 420, tileH: 300, curveDist: 780 };
-export const MOBILE_GRID: GridConfig = { cols: 5, rows: 6, tileW: 220, tileH: 160, curveDist: 360 };
+export const DESKTOP_GRID: GridConfig = { cols: 10, rows: 8, tileW: 420, tileH: 300 };
+export const MOBILE_GRID: GridConfig = { cols: 5, rows: 6, tileW: 220, tileH: 160 };
 export const MOBILE_BREAKPOINT = 720;
 
 export function clamp(value: number, min: number, max: number): number {
@@ -167,42 +151,4 @@ export function buildGridAssignment<T extends HasBrand>(cols: number, rows: numb
   }
 
   return assignment;
-}
-
-export interface FisheyeResult {
-  extraRotate: number;
-  depth: number;
-  dirX: number;
-  dirY: number;
-}
-
-// Distance-based curve. The PRIMARY depth cue is translateZ (depth) —
-// tiles physically recede the further they sit from center, which the
-// parent's `perspective` foreshortens into a smooth, continuous "curving
-// away into the distance" read. This is what a real concave dome needs:
-// every tile moves straight back along the same axis, so neighboring
-// tiles stay in lockstep with each other — no seams.
-//
-// Rotation is now a SECONDARY accent only, kept small on purpose. Each
-// tile still rotates around its own center (a real shared-pivot dome
-// would need to rotate the whole coordinate frame around one shared
-// origin before translating outward, which isn't compatible with this
-// grid's flat-pixel infinite-wrap positioning) — independent per-tile
-// rotation is exactly what causes the "fanned playing cards" look if
-// it's the dominant effect. Kept small, it just adds a bit of tilt on
-// top of the depth cue without becoming visible as separate spinning
-// cards.
-//
-// Cubic ease-in: near-zero through the center third of the grid, then
-// ramps up quickly toward the outer edge — flat middle, curved rim.
-export function fisheyeCurve(x: number, y: number, maxDist: number): FisheyeResult {
-  const dist = Math.sqrt(x * x + y * y);
-  const t = clamp(dist / maxDist, 0, 1);
-  const eased = t * t * t;
-  return {
-    extraRotate: eased * 7,
-    depth: -eased * 460,
-    dirX: dist === 0 ? 0 : x / dist,
-    dirY: dist === 0 ? 0 : y / dist,
-  };
 }
