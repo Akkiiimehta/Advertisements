@@ -49,8 +49,7 @@ export default function Tile({
     const curve = fisheyeCurve(wx, wy, curveDist);
     const rotateX = curve.extraRotate * -curve.dirY;
     const rotateY = curve.extraRotate * curve.dirX;
-    const scale = curve.scale * hs;
-    return `translate3d(${wx}px, ${wy}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+    return `translate3d(${wx}px, ${wy}px, ${curve.depth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${hs})`;
   });
 
   function handlePointerEnter() {
