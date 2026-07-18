@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { MotionValue, motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { Project, getThumbnailUrl } from "@/lib/projects";
-import { GridConfig, TILE_OVERLAP, fisheyeCurve, wrapToNearest } from "@/lib/grid";
+import { GridConfig, TILE_OVERLAP, PERSPECTIVE, fisheyeCurve, wrapToNearest } from "@/lib/grid";
 
 interface TileProps {
   project: Project;
@@ -49,7 +49,21 @@ export default function Tile({
     const curve = fisheyeCurve(wx, wy, curveDist);
     const rotateX = curve.extraRotate * -curve.dirY;
     const rotateY = curve.extraRotate * curve.dirX;
-    return `translate3d(${wx}px, ${wy}px, ${curve.depth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${hs})`;
+
+    // CSS perspective doesn't just shrink a receded (negative-Z) element
+    // visually — it also pulls its X/Y position in toward the vanishing
+    // point, proportionally to how far back it's moved. Left alone, that
+    // makes every tile slide toward center as it recedes, which both
+    // causes the overlap and reads as the OUTSIDE of a sphere (edges
+    // curving inward toward the viewer) rather than the inside of one.
+    // Pre-scaling wx/wy by the inverse of that same factor cancels it
+    // out exactly, so tiles recede and shrink in place without drifting
+    // off their grid position.
+    const perspectiveComp = 1 - curve.depth / PERSPECTIVE;
+    const compX = wx * perspectiveComp;
+    const compY = wy * perspectiveComp;
+
+    return `translate3d(${compX}px, ${compY}px, ${curve.depth}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${hs})`;
   });
 
   function handlePointerEnter() {
