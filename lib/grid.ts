@@ -22,6 +22,12 @@ export interface GridConfig {
 // Tiles render this many px larger than their grid spacing (centered via
 // negative offset) so the very slight curvature that's still applied
 // never reveals a hairline gap between neighbors.
+// The perspective value applied to .grid-tiles (see InfiniteGrid.tsx).
+// Kept here as the single source of truth because Tile.tsx needs this
+// exact number to compensate for perspective's own position-shrinking —
+// see the comment on `depth` below.
+export const PERSPECTIVE = 1400;
+
 export const TILE_OVERLAP = 4;
 
 export const DESKTOP_GRID: GridConfig = { cols: 10, rows: 8, tileW: 420, tileH: 300, curveDist: 780 };
