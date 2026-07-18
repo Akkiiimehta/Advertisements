@@ -22,7 +22,7 @@ export interface GridConfig {
 // Tiles render this many px larger than their grid spacing (centered via
 // negative offset) so the very slight curvature that's still applied
 // never reveals a hairline gap between neighbors.
-export const TILE_OVERLAP = 2;
+export const TILE_OVERLAP = 4;
 
 export const DESKTOP_GRID: GridConfig = { cols: 10, rows: 8, tileW: 420, tileH: 300, curveDist: 780 };
 export const MOBILE_GRID: GridConfig = { cols: 5, rows: 6, tileW: 220, tileH: 160, curveDist: 360 };
@@ -165,28 +165,37 @@ export function buildGridAssignment<T extends HasBrand>(cols: number, rows: numb
 
 export interface FisheyeResult {
   extraRotate: number;
+  depth: number;
   dirX: number;
   dirY: number;
-  scale: number;
 }
 
-// Distance-based curve: rotation + compression increase the further a
-// tile sits from the viewport center, on top of its own base jitter.
-// Kept gentle and linear (not eased) so the rotation delta between two
-// neighboring tiles stays small everywhere — that's what keeps edges
-// reading as one continuous curved surface instead of fanning apart.
+// Distance-based curve. The PRIMARY depth cue is translateZ (depth) —
+// tiles physically recede the further they sit from center, which the
+// parent's `perspective` foreshortens into a smooth, continuous "curving
+// away into the distance" read. This is what a real concave dome needs:
+// every tile moves straight back along the same axis, so neighboring
+// tiles stay in lockstep with each other — no seams.
+//
+// Rotation is now a SECONDARY accent only, kept small on purpose. Each
+// tile still rotates around its own center (a real shared-pivot dome
+// would need to rotate the whole coordinate frame around one shared
+// origin before translating outward, which isn't compatible with this
+// grid's flat-pixel infinite-wrap positioning) — independent per-tile
+// rotation is exactly what causes the "fanned playing cards" look if
+// it's the dominant effect. Kept small, it just adds a bit of tilt on
+// top of the depth cue without becoming visible as separate spinning
+// cards.
+//
+// Cubic ease-in: near-zero through the center third of the grid, then
+// ramps up quickly toward the outer edge — flat middle, curved rim.
 export function fisheyeCurve(x: number, y: number, maxDist: number): FisheyeResult {
   const dist = Math.sqrt(x * x + y * y);
   const t = clamp(dist / maxDist, 0, 1);
-  // Cubic ease-in: near-zero through the center third of the grid, then
-  // ramps up quickly toward the outer edge. This is what keeps the
-  // middle of the canvas reading as flat while the rim curves away like
-  // the inside of a sphere, instead of every tile tilting a little bit
-  // starting right from dead-center.
   const eased = t * t * t;
   return {
-    extraRotate: eased * 22,
-    scale: 1 - eased * 0.16,
+    extraRotate: eased * 7,
+    depth: -eased * 460,
     dirX: dist === 0 ? 0 : x / dist,
     dirY: dist === 0 ? 0 : y / dist,
   };
