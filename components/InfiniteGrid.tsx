@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import Tile from "./Tile";
 import { Project } from "@/lib/projects";
-import { GridConfig, cellHash } from "@/lib/grid";
+import { GridConfig, cellHash, PERSPECTIVE } from "@/lib/grid";
 
 interface InfiniteGridProps {
   grid: GridConfig;
@@ -57,7 +57,7 @@ export default function InfiniteGrid({
         dragElastic={0}
         style={{ x: dragX, y: dragY }}
       />
-      <div className="grid-tiles" style={{ perspective: 1400 }}>
+      <div className="grid-tiles" style={{ perspective: PERSPECTIVE }}>
         {cells.map(({ cellIndex, col, row }) => (
           <Tile
             key={cellIndex}
