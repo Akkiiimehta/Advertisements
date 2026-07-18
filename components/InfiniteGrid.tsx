@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import Tile from "./Tile";
 import { Project } from "@/lib/projects";
-import { GridConfig, cellHash } from "@/lib/grid";
+import { GridConfig } from "@/lib/grid";
 
 interface InfiniteGridProps {
   grid: GridConfig;
@@ -68,7 +68,6 @@ export default function InfiniteGrid({
             project={getProject(row, col)}
             dragX={dragX}
             dragY={dragY}
-            showTitleCard={cellHash(row, col, 5, 1) === 0}
             isOpen={cellIndex === openCellIndex}
             onOpen={onOpen}
           />
