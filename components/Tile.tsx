@@ -13,7 +13,6 @@ interface TileProps {
   grid: GridConfig;
   dragX: MotionValue<number>;
   dragY: MotionValue<number>;
-  showTitleCard: boolean;
   isOpen: boolean;
   onOpen: (project: Project, layoutId: string, cellIndex: number) => void;
 }
@@ -26,7 +25,6 @@ export default function Tile({
   grid,
   dragX,
   dragY,
-  showTitleCard,
   isOpen,
   onOpen,
 }: TileProps) {
@@ -61,7 +59,7 @@ export default function Tile({
 
   const layoutId = `tile-${cellIndex}`;
   const thumbnail = getThumbnailUrl(project);
-  const useTitleCard = showTitleCard || !thumbnail;
+  const useTitleCard = !thumbnail;
 
   return (
     <motion.div
