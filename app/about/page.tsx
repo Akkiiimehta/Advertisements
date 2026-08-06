@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import "@fontsource-variable/sora";
+import SoundToggle from "@/components/SoundToggle";
 
 const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), {
   ssr: false,
@@ -17,6 +18,7 @@ export default function AboutPage() {
         <Link href="/" className="about-back">
           &larr; Work
         </Link>
+        <SoundToggle />
       </div>
 
       <div className="about-hero">
