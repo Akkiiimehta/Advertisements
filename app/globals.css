@@ -45,6 +45,17 @@ body {
   background: var(--bg);
 }
 
+/* Wraps the grid/list content only (not SiteChrome) for the cinematic
+   post-intro reveal in page.tsx. Needs explicit position+inset because
+   animating scale/filter on it makes it the containing block for its
+   absolutely-positioned children (InfiniteGrid's .grid-viewport) â€” see
+   the comment in page.tsx for why SiteChrome is deliberately excluded
+   from this wrapper instead of sharing it. */
+.hero-reveal {
+  position: absolute;
+  inset: 0;
+}
+
 button {
   font-family: inherit;
   color: inherit;
@@ -1148,6 +1159,31 @@ a {
   inset: 0;
   background: radial-gradient(circle at 50% 45%, rgba(214, 255, 63, 0.08), transparent 60%);
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-spline-placeholder-loading {
+  background: var(--bg);
+}
+
+.about-spline-loading-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  animation: about-spline-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes about-spline-pulse {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.9;
+  }
 }
 
 .about-hero-text {
