@@ -71,8 +71,12 @@ export default function IntroAnimation({ onDone }: IntroAnimationProps) {
           setTimeout(finish, 140);
         }
       }}
-      animate={punching ? { scale: 1.15, opacity: 0 } : { scale: 1, opacity: 1 }}
-      transition={{ duration: 0.22, ease: [0.6, 0, 0.4, 1] }}
+      animate={
+        punching
+          ? { scale: 1.12, opacity: 0, filter: "blur(24px) brightness(0.3)" }
+          : { scale: 1, opacity: 1, filter: "blur(0px) brightness(1)" }
+      }
+      transition={{ duration: 0.32, ease: [0.6, 0, 0.4, 1] }}
     >
       <AnimatePresence mode="wait">
         <motion.span
