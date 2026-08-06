@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Project, getEmbedUrl } from "@/lib/projects";
+import { useSound } from "./SoundProvider";
 
 interface ProjectModalProps {
   project: Project;
@@ -12,6 +13,20 @@ interface ProjectModalProps {
 
 export default function ProjectModal({ project, layoutId, onClose }: ProjectModalProps) {
   const [creditsOpen, setCreditsOpen] = useState(false);
+  const { duckAudio, unduckAudio } = useSound();
+
+  // Runs once per mount (a new ProjectModal instance is created each
+  // time a project opens) — pause background music for the entire time
+  // this modal exists, resume it the moment it unmounts, regardless of
+  // whether the project's own video actually played, was muted, etc.
+  // Ducking on "modal is open" rather than "video is playing" is the
+  // simpler and more reliable rule: we don't control the YouTube
+  // iframe's internal play state, so we can't react to it directly.
+  useEffect(() => {
+    duckAudio();
+    return () => unduckAudio();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="modal-root">
