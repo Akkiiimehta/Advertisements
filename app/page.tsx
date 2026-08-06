@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import IntroAnimation from "@/components/IntroAnimation";
 import InfiniteGrid from "@/components/InfiniteGrid";
 import ListView from "@/components/ListView";
@@ -85,28 +85,37 @@ export default function Home() {
 
       {introDone && (
         <>
-          {view === "grid" ? (
-            <InfiniteGrid
-              grid={grid}
-              getProject={getProject}
-              dragEnabled={!selected && !filterOpen && nav === "work"}
-              openCellIndex={selected?.cellIndex ?? null}
-              onOpen={handleOpen}
-            />
-          ) : (
-            <ListView projects={filteredProjects} onOpen={handleOpen} />
-          )}
+          <motion.div
+            className="hero-reveal"
+            initial={{ opacity: 0, scale: 1.08, filter: "blur(18px) brightness(0.4)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(1)" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {view === "grid" ? (
+              <InfiniteGrid
+                grid={grid}
+                getProject={getProject}
+                dragEnabled={!selected && !filterOpen && nav === "work"}
+                openCellIndex={selected?.cellIndex ?? null}
+                onOpen={handleOpen}
+              />
+            ) : (
+              <ListView projects={filteredProjects} onOpen={handleOpen} />
+            )}
+          </motion.div>
 
-          <SiteChrome
-            view={view}
-            onViewChange={setView}
-            onFilterClick={() => setFilterOpen((v) => !v)}
-            activeFilterCount={activeTags.length + activeRoles.length}
-            activeNav={nav}
-            onNavChange={handleNavChange}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-          />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.25 }}>
+            <SiteChrome
+              view={view}
+              onViewChange={setView}
+              onFilterClick={() => setFilterOpen((v) => !v)}
+              activeFilterCount={activeTags.length + activeRoles.length}
+              activeNav={nav}
+              onNavChange={handleNavChange}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+            />
+          </motion.div>
 
           <AnimatePresence>
             {filterOpen && (
