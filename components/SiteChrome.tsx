@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ViewMode } from "./types";
+import SoundToggle from "./SoundToggle";
 
 interface SiteChromeProps {
   view: ViewMode;
@@ -60,6 +61,7 @@ export default function SiteChrome({
           />
         </div>
       <span className="wordmark">AKI</span>
+      <SoundToggle />
       </div>
 
       <div className="chrome-corner chrome-top-center">
