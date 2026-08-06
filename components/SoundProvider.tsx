@@ -23,7 +23,9 @@ const TRACK_SRC = "/audio/background.mp3";
 // /about and back doesn't restart the track or duplicate the element,
 // because the layout tree that owns it never unmounts.
 export function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [soundOn, setSoundOn] = useState(false);
+  // Defaults to ON — see the effect below for why this alone doesn't
+  // start playback immediately.
+  const [soundOn, setSoundOn] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Mirrors soundOn but read inside duck/unduck via .current instead of
@@ -50,6 +52,29 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
       audio.pause();
     }
   }, [soundOn]);
+
+  useEffect(() => {
+    // Browsers block audio.play() with sound until the visitor has
+    // interacted with the page at least once — no code can bypass
+    // this, it's a platform-level restriction. This listens for their
+    // FIRST interaction anywhere on the site (most commonly clicking
+    // or pressing a key to skip the intro screen, which nearly every
+    // visitor does within their first second) and uses that as the
+    // permission to start playing — so from the visitor's experience,
+    // sound starts the moment they enter the site rather than
+    // requiring them to specifically find and click the toggle.
+    function unlock() {
+      if (soundOnRef.current) audioRef.current?.play().catch(() => {});
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+    }
+    window.addEventListener("pointerdown", unlock);
+    window.addEventListener("keydown", unlock);
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+    };
+  }, []);
 
   function toggleSound() {
     setSoundOn((prev) => !prev);
