@@ -858,10 +858,10 @@ a {
 .list-view-row {
   width: 100%;
   display: grid;
-  grid-template-columns: 44px 1fr auto auto;
+  grid-template-columns: 44px 96px 1fr auto auto;
   align-items: center;
   gap: 20px;
-  padding: 18px 4px;
+  padding: 12px 4px;
   border-bottom: 1px solid var(--border);
   text-align: left;
   transition: background 160ms ease;
@@ -875,6 +875,32 @@ a {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--fg-faint);
+}
+
+.list-view-thumb {
+  position: relative;
+  width: 96px;
+  height: 54px;
+  flex-shrink: 0;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-view-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.list-view-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .list-view-titleblock {
@@ -1066,7 +1092,13 @@ a {
   }
 
   .list-view-row {
-    grid-template-columns: 32px 1fr auto;
+    grid-template-columns: 28px 64px 1fr auto;
+    gap: 12px;
+  }
+
+  .list-view-thumb {
+    width: 64px;
+    height: 36px;
   }
 
   .list-view-tags {
@@ -1180,10 +1212,19 @@ a {
   -webkit-user-drag: none;
 }
 
-/* Small floating labels either side of the robot â€” not a boxed loading
-   bar, just a couple of lightweight text callouts so the wait reads as
-   "still doing something" without looking like an error or a stalled
-   page. */
+/* Persistent overlay â€” unlike .about-spline-placeholder, this never
+   fades. Sits above both the placeholder image and the live Spline
+   canvas at all times. */
+.about-spline-callouts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Small floating labels near the robot's arms â€” not a boxed loading
+   bar, just a couple of lightweight text callouts. Positioned closer to
+   center than the hero's outer edges since they're meant to sit near
+   where the arms actually extend to, not float in the corners. */
 .about-spline-callout {
   position: absolute;
   top: 46%;
@@ -1196,12 +1237,12 @@ a {
 }
 
 .about-spline-callout-left {
-  left: 8%;
+  left: 30%;
   animation-delay: 0s;
 }
 
 .about-spline-callout-right {
-  right: 8%;
+  right: 30%;
   animation-delay: 0.6s;
 }
 
