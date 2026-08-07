@@ -12,7 +12,7 @@ const SEQUENCE = [
   { word: "ACTION.", hold: 340 },
 ];
 
-const STORAGE_KEY = "ad-portfolio:intro-seen";
+export const INTRO_STORAGE_KEY = "ad-portfolio:intro-seen";
 
 interface IntroAnimationProps {
   onDone: () => void;
@@ -29,7 +29,7 @@ export default function IntroAnimation({ onDone }: IntroAnimationProps) {
 
   function finish() {
     try {
-      sessionStorage.setItem(STORAGE_KEY, "1");
+      sessionStorage.setItem(INTRO_STORAGE_KEY, "1");
     } catch {
       // sessionStorage unavailable (e.g. privacy mode) — fine, intro just replays
     }
