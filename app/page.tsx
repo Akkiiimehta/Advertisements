@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import IntroAnimation from "@/components/IntroAnimation";
+import IntroAnimation, { INTRO_STORAGE_KEY } from "@/components/IntroAnimation";
 import InfiniteGrid from "@/components/InfiniteGrid";
 import ListView from "@/components/ListView";
 import SiteChrome from "@/components/SiteChrome";
@@ -15,7 +15,18 @@ import { buildGridAssignment } from "@/lib/grid";
 import { useGridConfig } from "@/hooks/useGridConfig";
 
 export default function Home() {
-  const [introDone, setIntroDone] = useState(false);
+  // Lazy initializer runs once, synchronously, before first paint — so
+  // if this session's already seen the intro, we skip straight past it
+  // instead of flashing it and then immediately hiding it. Guarded for
+  // SSR/static-export's prerender pass, where window doesn't exist yet.
+  const [introDone, setIntroDone] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return sessionStorage.getItem(INTRO_STORAGE_KEY) === "1";
+    } catch {
+      return false; // sessionStorage unavailable (e.g. privacy mode) — just show the intro
+    }
+  });
   const [view, setView] = useState<ViewMode>("grid");
   const [nav, setNav] = useState<NavItem>("work");
   const [filterOpen, setFilterOpen] = useState(false);
