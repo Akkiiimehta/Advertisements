@@ -7,6 +7,18 @@ import SoundToggle from "@/components/SoundToggle";
 
 const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), {
   ssr: false,
+  loading: () => (
+    <div className="about-spline-placeholder is-loading-chunk" aria-hidden>
+      <img
+        className="about-spline-placeholder-img"
+        src="/images/about-hero-placeholder.jpg"
+        alt=""
+        draggable={false}
+      />
+      <span className="about-spline-callout about-spline-callout-left">Skip AD</span>
+      <span className="about-spline-callout about-spline-callout-right">Not Here</span>
+    </div>
+  ),
 });
 
 const SPLINE_SCENE_URL = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
