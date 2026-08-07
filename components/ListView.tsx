@@ -1,6 +1,6 @@
 "use client";
 
-import { Project } from "@/lib/projects";
+import { Project, getThumbnailUrl } from "@/lib/projects";
 
 interface ListViewProps {
   projects: Project[];
@@ -13,22 +13,32 @@ export default function ListView({ projects, onOpen }: ListViewProps) {
       <div className="list-view-inner">
         <p className="list-view-heading">Work — {projects.length} projects</p>
         <ul className="list-view-items">
-          {projects.map((project, i) => (
-            <li key={project.id} className="list-view-item">
-              <button
-                className="list-view-row"
-                onClick={() => onOpen(project, `list-${project.id}`)}
-              >
-                <span className="list-view-index">{String(i + 1).padStart(2, "0")}</span>
-                <span className="list-view-titleblock">
-                  <span className="list-view-title">{project.title}</span>
-                  <span className="list-view-brand">{project.brand}</span>
-                </span>
-                <span className="list-view-tags">{project.tags.join(", ")}</span>
-                <span className="list-view-year">{project.year}</span>
-              </button>
-            </li>
-          ))}
+          {projects.map((project, i) => {
+            const thumbnail = getThumbnailUrl(project);
+            return (
+              <li key={project.id} className="list-view-item">
+                <button
+                  className="list-view-row"
+                  onClick={() => onOpen(project, `list-${project.id}`)}
+                >
+                  <span className="list-view-index">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="list-view-thumb">
+                    {thumbnail ? (
+                      <img src={thumbnail} alt="" draggable={false} loading="lazy" />
+                    ) : (
+                      <span className="list-view-thumb-fallback" style={{ background: project.tintColor }} />
+                    )}
+                  </span>
+                  <span className="list-view-titleblock">
+                    <span className="list-view-title">{project.title}</span>
+                    <span className="list-view-brand">{project.brand}</span>
+                  </span>
+                  <span className="list-view-tags">{project.tags.join(", ")}</span>
+                  <span className="list-view-year">{project.year}</span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
