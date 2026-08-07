@@ -17,10 +17,14 @@ interface AboutSplineSceneProps {
 // few MB before the scene file even starts fetching), a static
 // screenshot of the loaded scene sits on top instead of a bare loading
 // state, so visitors see a finished-looking hero immediately rather
-// than a spinner. Two small floating labels sit either side of the
-// robot as a lightweight "still working" signal. Both fade out together
-// the moment the real scene reports loaded, crossfading into it rather
-// than cutting.
+// than a spinner. That screenshot layer fades out the moment the real
+// scene reports loaded.
+//
+// The two floating labels are a SEPARATE layer from that screenshot —
+// deliberately, since they're meant to stay visible permanently, not
+// just during the load. Positioned near where the arms actually sit
+// (roughly 30%/70% of the hero's width) rather than pinned to the far
+// edges.
 export default function AboutSplineScene({ sceneUrl }: AboutSplineSceneProps) {
   const [loaded, setLoaded] = useState(false);
 
@@ -35,8 +39,11 @@ export default function AboutSplineScene({ sceneUrl }: AboutSplineSceneProps) {
           alt=""
           draggable={false}
         />
-        <span className="about-spline-callout about-spline-callout-left">Skip AD</span>
-        <span className="about-spline-callout about-spline-callout-right">Not Here</span>
+      </div>
+
+      <div className="about-spline-callouts" aria-hidden>
+        <span className="about-spline-callout about-spline-callout-left">Not Here</span>
+        <span className="about-spline-callout about-spline-callout-right">Skip Ad</span>
       </div>
     </div>
   );
