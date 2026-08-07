@@ -8,15 +8,19 @@ import SoundToggle from "@/components/SoundToggle";
 const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), {
   ssr: false,
   loading: () => (
-    <div className="about-spline-placeholder is-loading-chunk" aria-hidden>
-      <img
-        className="about-spline-placeholder-img"
-        src="/images/about-hero-placeholder.jpg"
-        alt=""
-        draggable={false}
-      />
-      <span className="about-spline-callout about-spline-callout-left">Skip AD</span>
-      <span className="about-spline-callout about-spline-callout-right">Not Here</span>
+    <div className="about-spline-wrap">
+      <div className="about-spline-placeholder is-loading-chunk" aria-hidden>
+        <img
+          className="about-spline-placeholder-img"
+          src="/images/about-hero-placeholder.jpg"
+          alt=""
+          draggable={false}
+        />
+      </div>
+      <div className="about-spline-callouts" aria-hidden>
+        <span className="about-spline-callout about-spline-callout-left">Not Here</span>
+        <span className="about-spline-callout about-spline-callout-right">Skip Ad</span>
+      </div>
     </div>
   ),
 });
