@@ -12,13 +12,32 @@ interface AboutSplineSceneProps {
 // app/about/page.tsx. Keeping it in its own component makes that easy to
 // swap out later (different scene, or drop it entirely) without touching
 // the page layout.
+//
+// While the real scene loads (several seconds — the runtime itself is a
+// few MB before the scene file even starts fetching), a static
+// screenshot of the loaded scene sits on top instead of a bare loading
+// state, so visitors see a finished-looking hero immediately rather
+// than a spinner. Two small floating labels sit either side of the
+// robot as a lightweight "still working" signal. Both fade out together
+// the moment the real scene reports loaded, crossfading into it rather
+// than cutting.
 export default function AboutSplineScene({ sceneUrl }: AboutSplineSceneProps) {
   const [loaded, setLoaded] = useState(false);
 
   return (
     <div className="about-spline-wrap">
       <Spline scene={sceneUrl} onLoad={() => setLoaded(true)} className="about-spline" />
-      {!loaded && <div className="about-spline-placeholder" aria-hidden />}
+
+      <div className={`about-spline-placeholder ${loaded ? "is-loaded" : ""}`} aria-hidden>
+        <img
+          className="about-spline-placeholder-img"
+          src="/images/about-hero-placeholder.jpg"
+          alt=""
+          draggable={false}
+        />
+        <span className="about-spline-callout about-spline-callout-left">Skip AD</span>
+        <span className="about-spline-callout about-spline-callout-right">Not Here</span>
+      </div>
     </div>
   );
 }
