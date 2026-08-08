@@ -1221,10 +1221,8 @@ a {
   pointer-events: none;
 }
 
-/* Small floating labels near the robot's arms â€” not a boxed loading
-   bar, just a couple of lightweight text callouts. Positioned closer to
-   center than the hero's outer edges since they're meant to sit near
-   where the arms actually extend to, not float in the corners. */
+/* Base styling â€” position/home-spot is set on the -chase modifier below,
+   kept separate in case a second static callout is ever added again. */
 .about-spline-callout {
   position: absolute;
   top: 46%;
@@ -1233,27 +1231,25 @@ a {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--fg-muted);
-  animation: about-spline-callout-float 2.4s ease-in-out infinite;
 }
 
-.about-spline-callout-left {
-  left: 30%;
-  animation-delay: 0s;
-}
-
-.about-spline-callout-right {
+/* Home position for SkipAdChaser â€” near the robot's right arm (screen
+   right). Its actual movement comes from Framer Motion's x/y (see
+   SkipAdChaser.tsx), which also renders as a `transform` â€” so this
+   deliberately does NOT use a CSS transform-based animation for the
+   idle pulse, that would fight the dodge motion on the same property.
+   Opacity is a different property, so the two coexist cleanly. */
+.about-spline-callout-chase {
   right: 30%;
-  animation-delay: 0.6s;
+  animation: about-spline-callout-pulse 2.4s ease-in-out infinite;
 }
 
-@keyframes about-spline-callout-float {
+@keyframes about-spline-callout-pulse {
   0%, 100% {
     opacity: 0.5;
-    transform: translateY(0);
   }
   50% {
     opacity: 1;
-    transform: translateY(-4px);
   }
 }
 
