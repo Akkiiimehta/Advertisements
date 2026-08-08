@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import "@fontsource-variable/sora";
 import SoundToggle from "@/components/SoundToggle";
+import SkipAdChaser from "@/components/SkipAdChaser";
 
 const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), {
   ssr: false,
@@ -17,9 +18,8 @@ const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), 
           draggable={false}
         />
       </div>
-      <div className="about-spline-callouts" aria-hidden>
-        <span className="about-spline-callout about-spline-callout-left">Not Here</span>
-        <span className="about-spline-callout about-spline-callout-right">Skip Ad</span>
+      <div className="about-spline-callouts">
+        <SkipAdChaser />
       </div>
     </div>
   ),
