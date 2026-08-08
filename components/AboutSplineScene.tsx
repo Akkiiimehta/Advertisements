@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Spline from "@splinetool/react-spline";
+import SkipAdChaser from "./SkipAdChaser";
 
 interface AboutSplineSceneProps {
   sceneUrl: string;
@@ -20,11 +21,9 @@ interface AboutSplineSceneProps {
 // than a spinner. That screenshot layer fades out the moment the real
 // scene reports loaded.
 //
-// The two floating labels are a SEPARATE layer from that screenshot —
-// deliberately, since they're meant to stay visible permanently, not
-// just during the load. Positioned near where the arms actually sit
-// (roughly 30%/70% of the hero's width) rather than pinned to the far
-// edges.
+// SkipAdChaser is a SEPARATE layer from that screenshot — deliberately,
+// since it's meant to stay visible permanently, not just during the
+// load. See SkipAdChaser.tsx for the dodge behavior itself.
 export default function AboutSplineScene({ sceneUrl }: AboutSplineSceneProps) {
   const [loaded, setLoaded] = useState(false);
 
@@ -41,9 +40,8 @@ export default function AboutSplineScene({ sceneUrl }: AboutSplineSceneProps) {
         />
       </div>
 
-      <div className="about-spline-callouts" aria-hidden>
-        <span className="about-spline-callout about-spline-callout-left">Not Here</span>
-        <span className="about-spline-callout about-spline-callout-right">Skip Ad</span>
+      <div className="about-spline-callouts">
+        <SkipAdChaser />
       </div>
     </div>
   );
