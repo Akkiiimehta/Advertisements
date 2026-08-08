@@ -1212,41 +1212,37 @@ a {
   -webkit-user-drag: none;
 }
 
-/* Persistent overlay â€” unlike .about-spline-placeholder, this never
-   fades. Sits above both the placeholder image and the live Spline
-   canvas at all times. */
+/* Persistent overlay wrapper â€” kept for structural consistency with
+   .about-spline-placeholder, though SkipAdChaser itself is
+   position:fixed and doesn't actually depend on this for placement. */
 .about-spline-callouts {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-/* Base styling â€” position/home-spot is set on the -chase modifier below,
-   kept separate in case a second static callout is ever added again. */
-.about-spline-callout {
-  position: absolute;
-  top: 46%;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-}
-
-/* Home position for SkipAdChaser â€” near the robot's right arm (screen
-   right). Its actual movement comes from Framer Motion's x/y (see
-   SkipAdChaser.tsx), which also renders as a `transform` â€” so this
-   deliberately does NOT use a CSS transform-based animation for the
-   idle pulse, that would fight the dodge motion on the same property.
-   Opacity is a different property, so the two coexist cleanly. */
+/* SkipAdChaser's own label. position:fixed (not absolute) is what lets
+   it escape .about-hero's bounds and run anywhere across the full
+   viewport â€” its actual top/left are driven by Framer Motion in
+   SkipAdChaser.tsx, this just sets the look. Bumped up from the
+   original small mono label: bigger, bolder, and in the accent color so
+   it reads as a fun, deliberate bit rather than a stray caption. */
 .about-spline-callout-chase {
-  right: 30%;
+  position: fixed;
+  z-index: 5;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--accent);
+  pointer-events: none;
   animation: about-spline-callout-pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes about-spline-callout-pulse {
   0%, 100% {
-    opacity: 0.5;
+    opacity: 0.7;
   }
   50% {
     opacity: 1;
