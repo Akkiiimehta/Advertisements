@@ -5,6 +5,8 @@ import Link from "next/link";
 import "@fontsource-variable/sora";
 import SoundToggle from "@/components/SoundToggle";
 import SkipAdChaser from "@/components/SkipAdChaser";
+import AboutTimeline from "@/components/AboutTimeline";
+import BrandMarquee from "@/components/BrandMarquee";
 
 const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), {
   ssr: false,
@@ -61,6 +63,9 @@ export default function AboutPage() {
             Get in touch
           </Link>
         </div>
+
+        <AboutTimeline />
+        <BrandMarquee />
       </div>
     </main>
   );
