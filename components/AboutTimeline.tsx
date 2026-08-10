@@ -25,6 +25,7 @@ export default function AboutTimeline() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
   const entryRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const dotRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   // Fade/slide-in + dot light-up.
   useEffect(() => {
@@ -41,19 +42,25 @@ export default function AboutTimeline() {
   }, []);
 
   // Glowing fill line — height tracks how far the viewport's vertical
-  // midpoint has progressed through the section. rAF-throttled scroll
-  // listener rather than polling every frame, so it costs nothing while
-  // the page is idle.
+  // midpoint has progressed from the section's top to the LAST DOT's
+  // own position specifically — not the section's full height, which
+  // would include the last entry's role/org text sitting below that
+  // dot. Measuring against the dot itself is what makes the line
+  // actually finish connecting to the last dot, instead of stopping
+  // short until you've also scrolled past its trailing text.
   useEffect(() => {
     let ticking = false;
 
     function update() {
       const section = sectionRef.current;
       const fill = fillRef.current;
-      if (section && fill) {
-        const rect = section.getBoundingClientRect();
+      const lastDot = dotRefs.current[dotRefs.current.length - 1];
+      if (section && fill && lastDot) {
+        const sectionTop = section.getBoundingClientRect().top;
+        const dotRect = lastDot.getBoundingClientRect();
+        const targetY = dotRect.top + dotRect.height / 2 - sectionTop;
         const viewportMid = window.innerHeight * 0.5;
-        const progress = (viewportMid - rect.top) / rect.height;
+        const progress = (viewportMid - sectionTop) / targetY;
         fill.style.height = `${Math.min(1, Math.max(0, progress)) * 100}%`;
       }
       ticking = false;
@@ -89,7 +96,13 @@ export default function AboutTimeline() {
               entryRefs.current[i] = el;
             }}
           >
-            <span className="timeline-dot" aria-hidden />
+            <span
+              className="timeline-dot"
+              aria-hidden
+              ref={(el) => {
+                dotRefs.current[i] = el;
+              }}
+            />
             <div className="timeline-content">
               <span className="timeline-year">{entry.year}</span>
               <h3 className="timeline-role">{entry.role}</h3>
