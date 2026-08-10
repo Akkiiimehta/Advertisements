@@ -9,21 +9,23 @@ const DODGE_DISTANCE = 150;
 // cursor movement mid-chase doesn't retarget it several times a second.
 const FLEE_COOLDOWN = 650;
 
-// Picks a spot in the opposite half of the viewport from the cursor —
-// both horizontally and vertically — so a "flee" is a genuine dash to
-// the other side of the screen, not a small nudge in a random direction.
-function randomFleeTarget(cursorX: number, cursorY: number, vw: number, vh: number) {
-  const xRange = cursorX < vw / 2 ? [vw * 0.55, vw * 0.9] : [vw * 0.1, vw * 0.45];
-  const yRange = cursorY < vh / 2 ? [vh * 0.55, vh * 0.82] : [vh * 0.14, vh * 0.42];
+// Picks a spot within the container's own bounds, in the opposite half
+// (both axes) from the cursor's position relative to that container —
+// so a "flee" reads as a genuine dash across the hero, not a nudge.
+function randomFleeTarget(cursorX: number, cursorY: number, w: number, h: number) {
+  const xRange = cursorX < w / 2 ? [w * 0.55, w * 0.88] : [w * 0.08, w * 0.42];
+  const yRange = cursorY < h / 2 ? [h * 0.55, h * 0.85] : [h * 0.1, h * 0.42];
   return {
     x: xRange[0] + Math.random() * (xRange[1] - xRange[0]),
     y: yRange[0] + Math.random() * (yRange[1] - yRange[0]),
   };
 }
 
-// Permanently uncatchable, by design — no "you got it" state. Fixed to
-// the viewport (not the hero box) so it can run anywhere on the page,
-// not just near the robot's arm.
+// Permanently uncatchable, by design — no "you got it" state.
+// position:absolute, confined to its nearest positioned ancestor (the
+// hero box) rather than position:fixed — deliberately NOT viewport-
+// fixed, so it scrolls away with the hero once the visitor scrolls past
+// it instead of trailing them down through the timeline/marquee below.
 export default function SkipAdChaser() {
   const ref = useRef<HTMLSpanElement>(null);
   const fleeing = useRef(false);
@@ -35,26 +37,32 @@ export default function SkipAdChaser() {
   const springTop = useSpring(top, { stiffness: 260, damping: 24 });
 
   // Starting spot — roughly where it used to sit, near the robot's
-  // right arm. Needs real window dimensions, so this only runs once
-  // mounted client-side.
+  // right arm. Measured against the actual container size rather than
+  // window dimensions, now that it's bounded to the hero.
   useEffect(() => {
-    left.set(window.innerWidth * 0.68);
-    top.set(window.innerHeight * 0.32);
+    const container = ref.current?.offsetParent as HTMLElement | null;
+    if (!container) return;
+    left.set(container.clientWidth * 0.7);
+    top.set(container.clientHeight * 0.42);
     setReady(true);
   }, [left, top]);
 
   useEffect(() => {
     function handlePointerMove(e: PointerEvent) {
       const el = ref.current;
-      if (!el || fleeing.current) return;
+      const container = el?.offsetParent as HTMLElement | null;
+      if (!el || !container || fleeing.current) return;
 
-      const rect = el.getBoundingClientRect();
-      const labelX = rect.left + rect.width / 2;
-      const labelY = rect.top + rect.height / 2;
+      const elRect = el.getBoundingClientRect();
+      const labelX = elRect.left + elRect.width / 2;
+      const labelY = elRect.top + elRect.height / 2;
       const dist = Math.hypot(labelX - e.clientX, labelY - e.clientY);
 
       if (dist < DODGE_DISTANCE) {
-        const target = randomFleeTarget(e.clientX, e.clientY, window.innerWidth, window.innerHeight);
+        const containerRect = container.getBoundingClientRect();
+        const cursorLocalX = e.clientX - containerRect.left;
+        const cursorLocalY = e.clientY - containerRect.top;
+        const target = randomFleeTarget(cursorLocalX, cursorLocalY, container.clientWidth, container.clientHeight);
         left.set(target.x);
         top.set(target.y);
         fleeing.current = true;
