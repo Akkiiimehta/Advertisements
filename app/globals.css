@@ -1221,14 +1221,15 @@ a {
   pointer-events: none;
 }
 
-/* SkipAdChaser's own label. position:fixed (not absolute) is what lets
-   it escape .about-hero's bounds and run anywhere across the full
-   viewport â€” its actual top/left are driven by Framer Motion in
-   SkipAdChaser.tsx, this just sets the look. Bumped up from the
-   original small mono label: bigger, bolder, and in the accent color so
-   it reads as a fun, deliberate bit rather than a stray caption. */
+/* SkipAdChaser's own label. position:absolute (not fixed) is
+   deliberate â€” it's confined to and positioned relative to its nearest
+   positioned ancestor (the hero box), which is what makes it scroll
+   away naturally once the visitor scrolls past the hero, instead of
+   trailing them down through the timeline/marquee below. Its actual
+   top/left within that box are driven by Framer Motion in
+   SkipAdChaser.tsx, this just sets the look. */
 .about-spline-callout-chase {
-  position: fixed;
+  position: absolute;
   z-index: 5;
   font-family: var(--font-display);
   font-weight: 800;
