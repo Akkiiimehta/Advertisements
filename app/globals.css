@@ -1117,6 +1117,26 @@ a {
   color: var(--fg);
 }
 
+/* ---------------------------------------------------------------------
+   About â€” top loading progress bar
+   ------------------------------------------------------------------- */
+.route-progress-track {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.route-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 8px 1px rgba(214, 255, 63, 0.6);
+  transition: width 200ms ease-out, opacity 400ms ease 150ms;
+}
+
 .about-topbar {
   position: fixed;
   top: 20px;
@@ -1276,6 +1296,17 @@ a {
   letter-spacing: -0.02em;
   line-height: 1;
   margin: 0;
+}
+
+.about-hero-lede {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  max-width: 480px;
+  margin: 16px 0 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 .about-content {
