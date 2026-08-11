@@ -1491,14 +1491,6 @@ a {
   width: auto;
   max-width: 180px;
   object-fit: contain;
-  filter: grayscale(1) brightness(1.6);
-  opacity: 0.6;
-  transition: filter 300ms ease, opacity 300ms ease;
-}
-
-.brand-marquee-item-logo:hover img {
-  filter: grayscale(0) brightness(1);
-  opacity: 1;
 }
 
 .brand-marquee-item-text {
