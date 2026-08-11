@@ -12,7 +12,7 @@ const BRANDS: Brand[] = [
   { name: "Pampers", logo: "/images/logos/pampers.png" },
   { name: "Dabur", logo: "/images/logos/dabur.png" },
   { name: "Zepto", logo: "/images/logos/zepto.png" },
-  { name: "KFC", logo: "/images/logos/kfc.png"},
+  { name: "KFC", logo: "/images/logos/kfc.png" },
   { name: "Flite", logo: "/images/logos/flite.png" },
   { name: "MuscleBlaze", logo: "/images/logos/muscleblaze.png" },
 ];
@@ -21,7 +21,7 @@ function BrandItem({ brand }: { brand: Brand }) {
   if (brand.logo) {
     return (
       <span className="brand-marquee-item brand-marquee-item-logo">
-        <img src={brand.logo} alt={brand.name} draggable={false} loading="lazy" />
+        <img src={brand.logo} alt={brand.name} draggable={false} />
       </span>
     );
   }
