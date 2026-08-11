@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import IntroAnimation, { INTRO_STORAGE_KEY } from "@/components/IntroAnimation";
 import InfiniteGrid from "@/components/InfiniteGrid";
@@ -15,18 +15,28 @@ import { buildGridAssignment } from "@/lib/grid";
 import { useGridConfig } from "@/hooks/useGridConfig";
 
 export default function Home() {
-  // Lazy initializer runs once, synchronously, before first paint — so
-  // if this session's already seen the intro, we skip straight past it
-  // instead of flashing it and then immediately hiding it. Guarded for
-  // SSR/static-export's prerender pass, where window doesn't exist yet.
-  const [introDone, setIntroDone] = useState(() => {
-    if (typeof window === "undefined") return false;
+  const [introDone, setIntroDone] = useState(false);
+
+  // Checked in an effect — NOT in the useState initializer above —
+  // deliberately. This app is statically exported, so the server-built
+  // HTML always has no sessionStorage to check and therefore always
+  // renders with the intro showing. If the initializer above read
+  // sessionStorage directly, a returning visitor's very first client
+  // render would skip the intro immediately, producing a DOM that
+  // structurally differs from what the server built (the whole
+  // InfiniteGrid/chrome block present vs. absent) — a hydration
+  // mismatch, not just a cosmetic flash. Running this check in an
+  // effect means it only ever fires after hydration has already
+  // reconciled successfully against the server's output, so the first
+  // render always matches, and this is just a fast follow-up update.
+  useEffect(() => {
     try {
-      return sessionStorage.getItem(INTRO_STORAGE_KEY) === "1";
+      if (sessionStorage.getItem(INTRO_STORAGE_KEY) === "1") setIntroDone(true);
     } catch {
-      return false; // sessionStorage unavailable (e.g. privacy mode) — just show the intro
+      // sessionStorage unavailable (e.g. privacy mode) — just show the intro
     }
-  });
+  }, []);
+
   const [view, setView] = useState<ViewMode>("grid");
   const [nav, setNav] = useState<NavItem>("work");
   const [filterOpen, setFilterOpen] = useState(false);
