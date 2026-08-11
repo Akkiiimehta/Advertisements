@@ -1110,6 +1110,90 @@ a {
    About page (real route, not an overlay) Ã¢â‚¬â€ clean, minimal, scrolls
    normally. Headings use Sora Variable (see app/about/page.tsx import).
    ------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+   About â€” intro bio modal (shown while the hero scene first loads)
+   ------------------------------------------------------------------- */
+.about-intro-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(4, 4, 5, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  /* Short fade â€” softens a same-tick mount+unmount for a returning
+     visitor whose sessionStorage check resolves almost immediately,
+     without making a first-time visitor wait to see it. */
+  animation: about-intro-fade-in 200ms ease;
+}
+
+@keyframes about-intro-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.about-intro-card {
+  width: min(480px, 100%);
+  background: var(--bg);
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-intro-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.about-intro-heading {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.about-intro-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+.about-intro-skip {
+  align-self: flex-start;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.about-intro-skip:hover,
+.about-intro-skip:focus-visible {
+  color: var(--fg);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
 .about-page {
   position: relative;
   min-height: 100dvh;
