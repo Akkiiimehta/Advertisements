@@ -95,7 +95,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   return (
     <SoundContext.Provider value={{ soundOn, toggleSound, duckAudio, unduckAudio }}>
       {children}
-      <audio ref={audioRef} src={TRACK_SRC} loop preload="none" />
+      <audio ref={audioRef} src={TRACK_SRC} loop preload="auto" />
     </SoundContext.Provider>
   );
 }
