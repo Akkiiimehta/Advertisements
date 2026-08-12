@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 // How close the cursor has to get (px) before it bolts.
-const DODGE_DISTANCE = 45;
+const DODGE_DISTANCE = 60;
 // Ignore further triggers while a flee is still animating, so rapid
 // cursor movement mid-chase doesn't retarget it several times a second.
 const FLEE_COOLDOWN = 650;
