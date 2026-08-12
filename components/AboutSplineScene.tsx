@@ -6,6 +6,7 @@ import SkipAdChaser from "./SkipAdChaser";
 
 interface AboutSplineSceneProps {
   sceneUrl: string;
+  onLoaded?: () => void;
 }
 
 // Spline's runtime is client-only and fairly heavy (WebGL), so this is
@@ -24,12 +25,17 @@ interface AboutSplineSceneProps {
 // SkipAdChaser is a SEPARATE layer from that screenshot — deliberately,
 // since it's meant to stay visible permanently, not just during the
 // load. See SkipAdChaser.tsx for the dodge behavior itself.
-export default function AboutSplineScene({ sceneUrl }: AboutSplineSceneProps) {
+export default function AboutSplineScene({ sceneUrl, onLoaded }: AboutSplineSceneProps) {
   const [loaded, setLoaded] = useState(false);
+
+  function handleLoad() {
+    setLoaded(true);
+    onLoaded?.();
+  }
 
   return (
     <div className="about-spline-wrap">
-      <Spline scene={sceneUrl} onLoad={() => setLoaded(true)} className="about-spline" />
+      <Spline scene={sceneUrl} onLoad={handleLoad} className="about-spline" />
 
       <div className={`about-spline-placeholder ${loaded ? "is-loaded" : ""}`} aria-hidden>
         <img
