@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import IntroAnimation, { INTRO_STORAGE_KEY } from "@/components/IntroAnimation";
 import InfiniteGrid from "@/components/InfiniteGrid";
@@ -15,6 +16,20 @@ import { buildGridAssignment } from "@/lib/grid";
 import { useGridConfig } from "@/hooks/useGridConfig";
 
 export default function Home() {
+  const router = useRouter();
+
+  // Fires immediately on mount, independent of the intro animation or
+  // SiteChrome's own mount time. The nav's <Link href="/about"> already
+  // prefetches on its own, but it doesn't exist in the DOM until AFTER
+  // the intro finishes — so relying on that alone means prefetch can't
+  // even start until someone's already looking at the nav, leaving very
+  // little head start before a quick click. Starting it here instead
+  // means the download has been running in the background since the
+  // moment the site loaded.
+  useEffect(() => {
+    router.prefetch("/about");
+  }, [router]);
+
   const [introDone, setIntroDone] = useState(false);
 
   // Checked in an effect — NOT in the useState initializer above —
