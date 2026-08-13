@@ -9,8 +9,15 @@
     "role": "Your role on the project",
     "productionHouse": "Production house / studio",
     "description": "Two to three lines describing the concept, the shoot, or the outcome.",
-    "credits": ["Director — Name", "DOP — Name", "Editor — Name"],
-    "tags": ["FMCG", "TVC"],
+    "credits": [
+      "Director — Name",
+      "DOP — Name",
+      "Editor — Name"
+    ],
+    "tags": [
+      "FMCG",
+      "TVC"
+    ],
     "year": 2026,
     "tintColor": "#D6FF3F"
   },
@@ -20,11 +27,17 @@
       "youtubeId": "eDN-MNkfEww",
       "title": "MuscleBlaze — Campaign Film I",
       "brand": "MuscleBlaze",
-      "role": "Creative Producer",
-      "productionHouse": "Worldwide Media",
+      "role": "Production Manager",
+      "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Sports", "Performance"],
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Sports",
+        "Performance"
+      ],
       "year": 2025,
       "tintColor": "#FF5B4A"
     },
@@ -33,11 +46,17 @@
       "youtubeId": "PTInRsim1AQ",
       "title": "MuscleBlaze — Campaign Film II",
       "brand": "MuscleBlaze",
-      "role": "Creative Producer",
-      "productionHouse": "Worldwide Media",
+      "role": "Production Manager",
+      "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Sports", "Performance"],
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Sports",
+        "Performance"
+      ],
       "year": 2025,
       "tintColor": "#FF5B4A"
     },
@@ -46,11 +65,17 @@
       "youtubeId": "_1XepF6s4u4",
       "title": "MuscleBlaze — Campaign Film III",
       "brand": "MuscleBlaze",
-      "role": "Creative Producer",
-      "productionHouse": "Worldwide Media",
+      "role": "Production Manager",
+      "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Sports", "Performance"],
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Sports",
+        "Performance"
+      ],
       "year": 2025,
       "tintColor": "#FF5B4A"
     },
@@ -59,12 +84,18 @@
       "youtubeId": "rRK2gmvGJIs",
       "title": "Zepto x Pampers",
       "brand": "Zepto",
-      "role": "Creative Producer",
-      "productionHouse": "Engauge Media",
+      "role": "In House Production",
+      "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Quick Commerce", "FMCG"],
-      "year": 2025,
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Quick Commerce",
+        "FMCG"
+      ],
+      "year": 2026,
       "tintColor": "#6F5BFF"
     },
     {
@@ -72,12 +103,18 @@
       "youtubeId": "85M2lnbg854",
       "title": "Zepto — Campaign Film",
       "brand": "Zepto",
-      "role": "Creative Producer",
-      "productionHouse": "Engauge Media",
+      "role": "In House Production",
+      "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Quick Commerce", "Brand Film"],
-      "year": 2025,
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Quick Commerce",
+        "Brand Film"
+      ],
+      "year": 2026,
       "tintColor": "#6F5BFF"
     },
     {
@@ -85,12 +122,18 @@
       "youtubeId": "fW-SkhfC3RM",
       "title": "Zepto x Dabur",
       "brand": "Zepto",
-      "role": "Creative Producer",
-      "productionHouse": "Engauge Media",
+      "role": "In House Production",
+      "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Quick Commerce", "FMCG"],
-      "year": 2025,
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Quick Commerce",
+        "FMCG"
+      ],
+      "year": 2026,
       "tintColor": "#6F5BFF"
     },
     {
@@ -98,12 +141,18 @@
       "youtubeId": "7niNm-mbHzM",
       "title": "Zepto — Stationery",
       "brand": "Zepto",
-      "role": "Creative Producer",
-      "productionHouse": "Engauge Media",
+      "role": "In House Production",
+      "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Quick Commerce", "Social"],
-      "year": 2025,
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Quick Commerce",
+        "Social"
+      ],
+      "year": 2026,
       "tintColor": "#6F5BFF"
     },
     {
@@ -111,11 +160,17 @@
       "youtubeId": "XFTxhmepqrk",
       "title": "Double Chicken Dynamite",
       "brand": "KFC India",
-      "role": "Creative Producer",
-      "productionHouse": "Third Floor Films",
+      "role": "Director's Assistant",
+      "productionHouse": "Engauge Media",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Food", "TVC"],
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Food",
+        "TVC"
+      ],
       "year": 2026,
       "tintColor": "#D6FF3F"
     },
@@ -124,11 +179,17 @@
       "youtubeId": "iBM6zHoLSAE",
       "title": "Match Made in Madness",
       "brand": "KFC India",
-      "role": "Creative Producer",
-      "productionHouse": "Third Floor Films",
+      "role": "Director's Assistant",
+      "productionHouse": "Engauge Media",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Food", "TVC"],
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Food",
+        "TVC"
+      ],
       "year": 2026,
       "tintColor": "#D6FF3F"
     },
@@ -137,41 +198,57 @@
       "youtubeId": "XKlnA33Mv08",
       "title": "Double Chicken Dynamite II",
       "brand": "KFC India",
-      "role": "Creative Producer",
-      "productionHouse": "Third Floor Films",
+      "role": "Director's Assistant",
+      "productionHouse": "Engauge Media",
       "description": "Add a short description of the concept, shoot, or outcome.",
-      "credits": ["Director — Add name", "DOP — Add name"],
-      "tags": ["Food", "TVC"],
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Food",
+        "TVC"
+      ],
       "year": 2026,
       "tintColor": "#D6FF3F"
     },
     {
-  "id": "ig-miniseries-01",
-  "instagramUrl": "https://www.instagram.com/reel/Db3BGBUIOXG/",
-  "coverImage": "/images/covers/bomcom-ep1.jpg",
-  "title": "Bom Com — Episode 1",
-  "brand": "Bom Com",
-  "role": "Associate Producer",
-  "productionHouse": "",
-  "description": "A mini-series following two girls navigating their move to Mumbai — new city, new flat, big dreams, and everything (chaotic, funny, occasionally tear-jerking) that comes with starting over together.",
-  "credits": ["Director — Add name", "DOP — Add name"],
-  "tags": ["Social", "Influencer"],
-  "year": 2026,
-  "tintColor": "#D6FF3F"
-},
-{
-  "id": "ig-miniseries-02",
-  "instagramUrl": "https://www.instagram.com/reel/Db8Ks0fPsYC/",
-  "coverImage": "/images/covers/bomcom-ep2.jpg",
-  "title": "Bom Com — Episode 2",
-  "brand": "Bom Com",
-  "role": "Associate Producer",
-  "productionHouse": "",
-  "description": "A mini-series following two girls navigating their move to Mumbai — new city, new flat, big dreams, and everything (chaotic, funny, occasionally tear-jerking) that comes with starting over together.",
-  "credits": ["Director — Add name", "DOP — Add name"],
-  "tags": ["Social", "Influencer"],
-  "year": 2026,
-  "tintColor": "#D6FF3F"
-}
+      "id": "ig-miniseries-01",
+      "instagramUrl": "https://www.instagram.com/reel/Db3BGBUIOXG/",
+      "title": "TODO — confirm campaign/brand name",
+      "brand": "TODO — confirm brand name",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+    {
+      "id": "ig-miniseries-02",
+      "instagramUrl": "https://www.instagram.com/reel/Db8Ks0fPsYC/",
+      "title": "TODO — confirm campaign/brand name",
+      "brand": "TODO — confirm brand name",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    }
   ]
 }
