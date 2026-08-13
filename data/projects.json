@@ -215,6 +215,7 @@
     {
       "id": "ig-miniseries-01",
       "instagramUrl": "https://www.instagram.com/reel/Db3BGBUIOXG/",
+      "coverImage": "/images/covers/bomcom-ep1.jpg",
       "title": "BOM COM",
       "brand": "R&S",
       "role": "Associate Producer",
@@ -234,6 +235,7 @@
     {
       "id": "ig-miniseries-02",
       "instagramUrl": "https://www.instagram.com/reel/Db8Ks0fPsYC/",
+      "coverImage": "/images/covers/bomcom-ep2.jpg",
       "title": "BOM COM",
       "brand": "R&S",
       "role": "Associate Producer",
