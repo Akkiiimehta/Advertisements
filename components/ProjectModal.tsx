@@ -15,6 +15,13 @@ export default function ProjectModal({ project, layoutId, onClose }: ProjectModa
   const [creditsOpen, setCreditsOpen] = useState(false);
   const { duckAudio, unduckAudio } = useSound();
 
+  // Instagram Reels are natively portrait (9:16) — forcing them into
+  // the same 16:9 landscape box YouTube embeds use crops/squeezes the
+  // actual content instead of showing it properly. YouTube-sourced
+  // projects (including ones that also happen to have an instagramUrl
+  // set) keep the landscape box; only Instagram-only projects switch.
+  const isPortrait = !project.youtubeId && !!project.instagramUrl;
+
   // Runs once per mount (a new ProjectModal instance is created each
   // time a project opens) — pause background music for the entire time
   // this modal exists, resume it the moment it unmounts, regardless of
@@ -48,7 +55,7 @@ export default function ProjectModal({ project, layoutId, onClose }: ProjectModa
         </button>
 
         <div className="modal-scroll">
-          <div className="modal-video-wrap">
+          <div className={`modal-video-wrap ${isPortrait ? "modal-video-wrap-portrait" : ""}`}>
             <iframe
               className="modal-video"
               src={getEmbedUrl(project)}
