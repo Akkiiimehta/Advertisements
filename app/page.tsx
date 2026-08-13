@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import IntroAnimation, { INTRO_STORAGE_KEY } from "@/components/IntroAnimation";
 import InfiniteGrid from "@/components/InfiniteGrid";
+import ShowreelLanding from "@/components/ShowreelLanding";
 import ListView from "@/components/ListView";
 import SiteChrome from "@/components/SiteChrome";
 import FilterPanel from "@/components/FilterPanel";
@@ -53,6 +54,7 @@ export default function Home() {
   }, []);
 
   const [view, setView] = useState<ViewMode>("grid");
+  const [landing, setLanding] = useState(true);
   const [nav, setNav] = useState<NavItem>("work");
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
@@ -121,59 +123,65 @@ export default function Home() {
 
       {introDone && (
         <>
-          <motion.div
-            className="hero-reveal"
-            initial={{ opacity: 0, scale: 1.08, filter: "blur(18px) brightness(0.4)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(1)" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {view === "grid" ? (
-              <InfiniteGrid
-                grid={grid}
-                getProject={getProject}
-                dragEnabled={!selected && !filterOpen && nav === "work"}
-                openCellIndex={selected?.cellIndex ?? null}
-                onOpen={handleOpen}
-              />
-            ) : (
-              <ListView projects={filteredProjects} onOpen={handleOpen} />
-            )}
-          </motion.div>
+          {landing ? (
+            <ShowreelLanding onOpen={handleOpen} onEnterArchive={() => setLanding(false)} />
+          ) : (
+            <>
+              <motion.div
+                className="hero-reveal"
+                initial={{ opacity: 0, scale: 1.08, filter: "blur(18px) brightness(0.4)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(1)" }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {view === "grid" ? (
+                  <InfiniteGrid
+                    grid={grid}
+                    getProject={getProject}
+                    dragEnabled={!selected && !filterOpen && nav === "work"}
+                    openCellIndex={selected?.cellIndex ?? null}
+                    onOpen={handleOpen}
+                  />
+                ) : (
+                  <ListView projects={filteredProjects} onOpen={handleOpen} />
+                )}
+              </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.25 }}>
-            <SiteChrome
-              view={view}
-              onViewChange={setView}
-              onFilterClick={() => setFilterOpen((v) => !v)}
-              activeFilterCount={activeTags.length + activeRoles.length}
-              activeNav={nav}
-              onNavChange={handleNavChange}
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-            />
-          </motion.div>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.25 }}>
+                <SiteChrome
+                  view={view}
+                  onViewChange={setView}
+                  onFilterClick={() => setFilterOpen((v) => !v)}
+                  activeFilterCount={activeTags.length + activeRoles.length}
+                  activeNav={nav}
+                  onNavChange={handleNavChange}
+                  searchQuery={searchQuery}
+                  onSearchChange={setSearchQuery}
+                />
+              </motion.div>
 
-          <AnimatePresence>
-            {filterOpen && (
-              <FilterPanel
-                tags={allTags}
-                activeTags={activeTags}
-                onToggle={toggleTag}
-                roles={ROLE_OPTIONS}
-                activeRoles={activeRoles}
-                onToggleRole={toggleRole}
-                onClear={() => {
-                  setActiveTags([]);
-                  setActiveRoles([]);
-                }}
-                onClose={() => setFilterOpen(false)}
-              />
-            )}
-          </AnimatePresence>
+              <AnimatePresence>
+                {filterOpen && (
+                  <FilterPanel
+                    tags={allTags}
+                    activeTags={activeTags}
+                    onToggle={toggleTag}
+                    roles={ROLE_OPTIONS}
+                    activeRoles={activeRoles}
+                    onToggleRole={toggleRole}
+                    onClear={() => {
+                      setActiveTags([]);
+                      setActiveRoles([]);
+                    }}
+                    onClose={() => setFilterOpen(false)}
+                  />
+                )}
+              </AnimatePresence>
 
-          <AnimatePresence>
-            {nav === "contact" && <InfoOverlay onClose={() => setNav("work")} />}
-          </AnimatePresence>
+              <AnimatePresence>
+                {nav === "contact" && <InfoOverlay onClose={() => setNav("work")} />}
+              </AnimatePresence>
+            </>
+          )}
 
           <AnimatePresence>
             {selected && (
