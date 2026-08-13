@@ -84,7 +84,7 @@ export function getEmbedUrl(project: Project): string {
   }
   if (project.instagramUrl) {
     const clean = project.instagramUrl.replace(/\/?(embed\/?)?$/, "");
-    return `${clean}/embed`;
+    return `${clean}/embed/captioned`;
   }
   return "";
 }
