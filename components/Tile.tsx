@@ -98,13 +98,15 @@ export default function Tile({
                 <span className="tile-titlecard-brand">{project.brand}</span>
               </div>
             ) : (
-              <img
-                className="tile-thumb"
-                src={thumbnail as string}
-                alt=""
-                draggable={false}
-                loading="lazy"
-              />
+              <div className="tile-thumb-frame">
+                <img
+                  className="tile-thumb"
+                  src={thumbnail as string}
+                  alt=""
+                  draggable={false}
+                  loading="lazy"
+                />
+              </div>
             )}
           </div>
 
