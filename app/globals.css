@@ -703,6 +703,17 @@ a {
   flex-shrink: 0;
 }
 
+/* Instagram Reels â€” the actual content is 9:16, not 16:9. Constrained
+   by width (not stretched full-bleed like the landscape version) so it
+   reads as a tall, centered player rather than an oddly narrow full-
+   width strip. */
+.modal-video-wrap-portrait {
+  aspect-ratio: 9 / 16;
+  width: auto;
+  max-height: 78vh;
+  margin: 0 auto;
+}
+
 .modal-video {
   position: absolute;
   inset: 0;
