@@ -144,6 +144,34 @@
       "tags": ["Food", "TVC"],
       "year": 2026,
       "tintColor": "#D6FF3F"
-    }
+    },
+    {
+  "id": "ig-miniseries-01",
+  "instagramUrl": "https://www.instagram.com/reel/Db3BGBUIOXG/",
+  "coverImage": "/images/covers/bomcom-ep1.jpg",
+  "title": "Bom Com — Episode 1",
+  "brand": "Bom Com",
+  "role": "Associate Producer",
+  "productionHouse": "",
+  "description": "A mini-series following two girls navigating their move to Mumbai — new city, new flat, big dreams, and everything (chaotic, funny, occasionally tear-jerking) that comes with starting over together.",
+  "credits": ["Director — Add name", "DOP — Add name"],
+  "tags": ["Social", "Influencer"],
+  "year": 2026,
+  "tintColor": "#D6FF3F"
+},
+{
+  "id": "ig-miniseries-02",
+  "instagramUrl": "https://www.instagram.com/reel/Db8Ks0fPsYC/",
+  "coverImage": "/images/covers/bomcom-ep2.jpg",
+  "title": "Bom Com — Episode 2",
+  "brand": "Bom Com",
+  "role": "Associate Producer",
+  "productionHouse": "",
+  "description": "A mini-series following two girls navigating their move to Mumbai — new city, new flat, big dreams, and everything (chaotic, funny, occasionally tear-jerking) that comes with starting over together.",
+  "credits": ["Director — Add name", "DOP — Add name"],
+  "tags": ["Social", "Influencer"],
+  "year": 2026,
+  "tintColor": "#D6FF3F"
+}
   ]
 }
