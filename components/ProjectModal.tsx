@@ -67,10 +67,12 @@ export default function ProjectModal({ project, layoutId, onClose }: ProjectModa
                 <span className="modal-meta-label">Role</span>
                 <span className="modal-meta-value">{project.role}</span>
               </div>
-              <div className="modal-meta-row">
-                <span className="modal-meta-label">Production house</span>
-                <span className="modal-meta-value">{project.productionHouse}</span>
-              </div>
+              {project.productionHouse && (
+                <div className="modal-meta-row">
+                  <span className="modal-meta-label">Production house</span>
+                  <span className="modal-meta-value">{project.productionHouse}</span>
+                </div>
+              )}
               <div className="modal-meta-row">
                 <span className="modal-meta-label">Year</span>
                 <span className="modal-meta-value">{project.year}</span>
