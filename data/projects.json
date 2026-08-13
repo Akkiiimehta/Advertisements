@@ -249,6 +249,19 @@
       ],
       "year": 2026,
       "tintColor": "#D6FF3F"
-    }
+    },
+    {
+  "id": "senior-producer-01",
+  "youtubeId": "NNfsu7mybGU",
+  "title": "Mumbai Bucket List",
+  "brand": "KFC India",
+  "role": "Senior Producer",
+  "productionHouse": "TODO — confirm production house",
+  "description": "Add a short description of the concept, shoot, or outcome.",
+  "credits": ["Director — Add name", "DOP — Add name"],
+  "tags": ["TODO", "TODO"],
+  "year": 2026,
+  "tintColor": "#D6FF3F"
+}
   ]
 }
