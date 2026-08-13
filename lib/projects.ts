@@ -56,6 +56,31 @@ export function getProjectByCellIndex(cellIndex: number): Project {
   return projects[cellIndex % totalProjects];
 }
 
+// Showreel landing helpers ------------------------------------------------
+// The hero needs a real backdrop image, so only projects that resolve to
+// a thumbnail (YouTube auto-thumb, or an explicit coverImage) are
+// eligible — a title-card tile has nothing to show full-bleed.
+export function getFeaturedProjects(list: Project[], count = 5): Project[] {
+  return [...list]
+    .filter((p) => getThumbnailUrl(p))
+    .sort((a, b) => b.year - a.year)
+    .slice(0, count);
+}
+
+// Groups projects into Netflix-style rows by brand, preserving each
+// brand's first-appearance order in the source list (Map preserves
+// insertion order) so the rows come out in a stable, predictable order
+// rather than reshuffling alphabetically.
+export function groupByBrand(list: Project[]): { brand: string; items: Project[] }[] {
+  const map = new Map<string, Project[]>();
+  for (const p of list) {
+    const arr = map.get(p.brand) ?? [];
+    arr.push(p);
+    map.set(p.brand, arr);
+  }
+  return Array.from(map.entries()).map(([brand, items]) => ({ brand, items }));
+}
+
 // A project can point at a YouTube video (youtubeId) or an Instagram Reel/
 // post (instagramUrl, e.g. "https://www.instagram.com/reel/Cxxxxxxxxx/").
 // If both are set, YouTube wins for the thumbnail since it's the only one
@@ -84,7 +109,7 @@ export function getEmbedUrl(project: Project): string {
   }
   if (project.instagramUrl) {
     const clean = project.instagramUrl.replace(/\/?(embed\/?)?$/, "");
-    return `${clean}/embed/captioned`;
+    return `${clean}/embed`;
   }
   return "";
 }
