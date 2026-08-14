@@ -2227,14 +2227,30 @@ a {
   }
 }
 
-/* --- Unified nudge popup ------------------------------------------- */
-.showreel-nudge-popup {
+/* --- Unified nudge popup (centered, blurred backdrop) -------------- */
+.showreel-nudge-root {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 30;
-  width: min(340px, calc(100vw - 40px));
-  padding: 22px 22px 20px;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.showreel-nudge-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 4, 5, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.showreel-nudge-popup {
+  position: relative;
+  z-index: 1;
+  width: min(380px, 100%);
+  padding: 26px 26px 22px;
   border-radius: 18px;
   background: #101012;
   border: 1px solid var(--accent);
@@ -2245,18 +2261,18 @@ a {
 @keyframes showreel-nudge-in {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.97);
+    transform: scale(0.94);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: scale(1);
   }
 }
 
 .showreel-nudge-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -2284,7 +2300,7 @@ a {
 }
 
 .showreel-nudge-text {
-  font-size: 14px;
+  font-size: 14.5px;
   line-height: 1.45;
   color: var(--fg);
   margin: 0;
@@ -2316,14 +2332,12 @@ a {
 .showreel-nudge-divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
-  margin: 16px 0;
+  margin: 18px 0;
 }
 
 @media (max-width: 720px) {
   .showreel-nudge-popup {
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
-    width: auto;
+    width: 100%;
+    padding: 22px 22px 20px;
   }
 }
