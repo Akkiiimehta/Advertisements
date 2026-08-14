@@ -13,6 +13,7 @@ interface ShowreelChromeProps {
 }
 
 const IDLE_MS = 4000;
+const HINT_DELAY_MS = 5000;
 const HINT_VISIBLE_MS = 3600;
 
 // Mirrors SiteChrome's six-corner layout (same .chrome / .chrome-corner
@@ -25,17 +26,26 @@ export default function ShowreelChrome({ onEnterArchive, onContactClick, totalCo
   const aboutBadge = useOneTimeHint("aki-about-badge-seen");
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // Fires exactly once, ever, on the first real idle moment — markSeen()
-  // persists to localStorage immediately so a refresh mid-fade can't
-  // bring it back.
+  // Fires once, ever, a fixed 5s after the panel mounts — deliberately
+  // NOT tied to the idle/scroll state. Someone actively scrolling
+  // through the rows (the most natural first thing to do) would keep
+  // resetting an idle-based timer forever, so it would never fire for
+  // exactly the people it's meant to help.
   useEffect(() => {
-    if (!idle || !archiveHint.show) return;
-    setShowTooltip(true);
-    archiveHint.markSeen();
-    const timer = setTimeout(() => setShowTooltip(false), HINT_VISIBLE_MS);
-    return () => clearTimeout(timer);
+    if (!archiveHint.show) return;
+    const showTimer = setTimeout(() => {
+      setShowTooltip(true);
+      archiveHint.markSeen();
+    }, HINT_DELAY_MS);
+    return () => clearTimeout(showTimer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idle, archiveHint.show]);
+  }, [archiveHint.show]);
+
+  useEffect(() => {
+    if (!showTooltip) return;
+    const hideTimer = setTimeout(() => setShowTooltip(false), HINT_VISIBLE_MS);
+    return () => clearTimeout(hideTimer);
+  }, [showTooltip]);
 
   return (
     <div className="chrome">
@@ -58,10 +68,10 @@ export default function ShowreelChrome({ onEnterArchive, onContactClick, totalCo
         <div className="showreel-archive-nudge">
           <button
             type="button"
-            className={`cta-pill ${idle ? "showreel-pulse" : ""}`}
+            className={`cta-pill showreel-archive-btn ${idle ? "showreel-pulse" : ""}`}
             onClick={onEnterArchive}
           >
-            Full archive
+            <span className="showreel-archive-btn-label">Full archive</span>
           </button>
           {showTooltip && (
             <span className="showreel-archive-hint" role="status">
