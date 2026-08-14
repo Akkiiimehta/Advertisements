@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import SoundToggle from "./SoundToggle";
 import { useIdle } from "@/lib/useIdle";
-import { useOneTimeHint } from "@/lib/useOneTimeHint";
+import { useSeenFlag } from "@/lib/useSeenFlag";
 
 interface ShowreelChromeProps {
   onEnterArchive: () => void;
@@ -13,39 +12,20 @@ interface ShowreelChromeProps {
 }
 
 const IDLE_MS = 4000;
-const HINT_DELAY_MS = 5000;
-const HINT_VISIBLE_MS = 3600;
 
 // Mirrors SiteChrome's six-corner layout (same .chrome / .chrome-corner
 // classes, same fixed positioning) so the Netflix-style landing panel
 // reads as the same site as the infinite grid, not a separate app
 // bolted on top of it.
+//
+// The old one-time tooltip + nav badge that lived here have been
+// consolidated into ShowreelNudgePopup (rendered by ShowreelLanding) —
+// one popup instead of several small competing hints. This component
+// keeps the ambient idle-pulse + shimmer on the archive button, since
+// that's ongoing decoration rather than a one-time nudge.
 export default function ShowreelChrome({ onEnterArchive, onContactClick, totalCount }: ShowreelChromeProps) {
   const idle = useIdle(IDLE_MS);
-  const archiveHint = useOneTimeHint("aki-archive-hint-seen");
-  const aboutBadge = useOneTimeHint("aki-about-badge-seen");
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  // Fires once, ever, a fixed 5s after the panel mounts — deliberately
-  // NOT tied to the idle/scroll state. Someone actively scrolling
-  // through the rows (the most natural first thing to do) would keep
-  // resetting an idle-based timer forever, so it would never fire for
-  // exactly the people it's meant to help.
-  useEffect(() => {
-    if (!archiveHint.show) return;
-    const showTimer = setTimeout(() => {
-      setShowTooltip(true);
-      archiveHint.markSeen();
-    }, HINT_DELAY_MS);
-    return () => clearTimeout(showTimer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [archiveHint.show]);
-
-  useEffect(() => {
-    if (!showTooltip) return;
-    const hideTimer = setTimeout(() => setShowTooltip(false), HINT_VISIBLE_MS);
-    return () => clearTimeout(hideTimer);
-  }, [showTooltip]);
+  const aboutBadge = useSeenFlag("aki-about-badge-seen");
 
   return (
     <div className="chrome">
@@ -65,20 +45,13 @@ export default function ShowreelChrome({ onEnterArchive, onContactClick, totalCo
       </div>
 
       <div className="chrome-corner chrome-bottom-left">
-        <div className="showreel-archive-nudge">
-          <button
-            type="button"
-            className={`cta-pill showreel-archive-btn ${idle ? "showreel-pulse" : ""}`}
-            onClick={onEnterArchive}
-          >
-            <span className="showreel-archive-btn-label">Full archive</span>
-          </button>
-          {showTooltip && (
-            <span className="showreel-archive-hint" role="status">
-              psst, there&rsquo;s more &rarr;
-            </span>
-          )}
-        </div>
+        <button
+          type="button"
+          className={`cta-pill showreel-archive-btn ${idle ? "showreel-pulse" : ""}`}
+          onClick={onEnterArchive}
+        >
+          <span className="showreel-archive-btn-label">Full archive</span>
+        </button>
       </div>
 
       <div className="chrome-corner chrome-bottom-center">
