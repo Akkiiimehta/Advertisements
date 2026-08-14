@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Project, getThumbnailUrl } from "@/lib/projects";
+import { Project, getThumbnailUrl, getHiResThumbnailUrl } from "@/lib/projects";
 
 interface ShowreelGridProps {
   projects: Project[];
@@ -32,10 +32,16 @@ export default function ShowreelGrid({ projects, onOpen }: ShowreelGridProps) {
               {thumb ? (
                 <img
                   className="showreel-card-thumb"
-                  src={thumb}
+                  src={getHiResThumbnailUrl(project) ?? thumb}
                   alt=""
                   draggable={false}
                   loading="lazy"
+                  onError={(e) => {
+                    // maxresdefault.jpg doesn't exist for every video —
+                    // fall back to the guaranteed hqdefault instead of
+                    // showing a broken image.
+                    if (e.currentTarget.src !== thumb) e.currentTarget.src = thumb;
+                  }}
                 />
               ) : (
                 <div
