@@ -27,6 +27,14 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
   const active = projects[index];
   const layoutId = `showreel-hero-${active.id}`;
 
+  function goPrev() {
+    setIndex((i) => (i - 1 + projects.length) % projects.length);
+  }
+
+  function goNext() {
+    setIndex((i) => (i + 1) % projects.length);
+  }
+
   return (
     <div
       className="showreel-hero"
@@ -46,6 +54,43 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
       </AnimatePresence>
 
       <div className="showreel-hero-scrim" />
+
+      {projects.length > 1 && (
+        <>
+          <button
+            type="button"
+            className="showreel-hero-arrow showreel-hero-arrow-left"
+            onClick={goPrev}
+            aria-label="Previous featured project"
+          >
+            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden>
+              <path
+                d="M7.5 1L1.5 7.5L7.5 14"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className="showreel-hero-arrow showreel-hero-arrow-right"
+            onClick={goNext}
+            aria-label="Next featured project"
+          >
+            <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden>
+              <path
+                d="M1.5 1L7.5 7.5L1.5 14"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </>
+      )}
 
       <div className="showreel-hero-content">
         <span className="showreel-hero-eyebrow">Featured</span>
