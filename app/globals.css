@@ -2032,3 +2032,66 @@ a {
     flex-basis: 210px;
   }
 }
+
+/* --- Showreel: back-to-showreel button (in SiteChrome, archive view) --- */
+.showreel-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 243, 238, 0.22);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.showreel-back-btn:hover,
+.showreel-back-btn:focus-visible {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+
+/* --- Showreel: bottom-right project count badge (ShowreelChrome) ------- */
+.showreel-count-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
+}
+
+/* --- Showreel: flat 4-per-row grid (replaces per-brand rows for now) --- */
+.showreel-grid {
+  position: relative;
+  z-index: 2;
+  margin-top: -90px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  padding: 0 40px 60px;
+}
+
+@media (max-width: 1100px) {
+  .showreel-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 820px) {
+  .showreel-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: -60px;
+    gap: 16px;
+    padding: 0 20px 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .showreel-grid {
+    grid-template-columns: 1fr;
+  }
+}
