@@ -48,10 +48,12 @@ export default function ShowreelNudgePopup({ onEnterArchive }: ShowreelNudgePopu
           &times;
         </button>
 
+        <h3 className="showreel-nudge-heading">
+          Hello, there&rsquo;s more below&hellip;
+        </h3>
+
         <div className="showreel-nudge-row">
-          <p className="showreel-nudge-text">
-            Psst <span aria-hidden>&mdash;</span> there&rsquo;s a lot more where that came from.
-          </p>
+          <p className="showreel-nudge-text">Dive into the full archive of work.</p>
           <button
             type="button"
             className="showreel-nudge-btn"
