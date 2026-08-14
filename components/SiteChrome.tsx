@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ViewMode } from "./types";
 import SoundToggle from "./SoundToggle";
+import { useOneTimeHint } from "@/lib/useOneTimeHint";
 
 interface SiteChromeProps {
   view: ViewMode;
@@ -29,6 +30,7 @@ export default function SiteChrome({
   onShowreelClick,
 }: SiteChromeProps) {
   const [searchOpen, setSearchOpen] = useState(false);
+  const aboutBadge = useOneTimeHint("aki-about-badge-seen");
 
   function closeSearch() {
     setSearchOpen(false);
@@ -123,8 +125,13 @@ export default function SiteChrome({
         <nav className="site-nav" aria-label="Primary">
           {(["work", "about", "contact"] as const).map((item) =>
             item === "about" ? (
-              <Link key={item} href="/about" className="site-nav-item">
+              <Link key={item} href="/about" className="site-nav-item" onClick={aboutBadge.markSeen}>
                 About
+                {aboutBadge.show && (
+                  <span className="nav-badge" aria-hidden>
+                    3D
+                  </span>
+                )}
               </Link>
             ) : (
               <button
