@@ -103,6 +103,20 @@ export function getThumbnailUrl(project: Project): string | null {
   return null;
 }
 
+// Higher-resolution variant used only by the Showreel hero/grid, where
+// cards render much larger than the main tile grid — hqdefault.jpg
+// (480x360) upscaled to fill those cards is what was causing the blur.
+// maxresdefault.jpg (1280x720) isn't generated for every video, so
+// callers should pair this with an <img onError> fallback to
+// getThumbnailUrl() rather than trusting it unconditionally.
+export function getHiResThumbnailUrl(project: Project): string | null {
+  if (project.coverImage) return project.coverImage;
+  if (project.youtubeId) {
+    return `https://img.youtube.com/vi/${project.youtubeId}/maxresdefault.jpg`;
+  }
+  return null;
+}
+
 export function getEmbedUrl(project: Project): string {
   if (project.youtubeId) {
     return `https://www.youtube.com/embed/${project.youtubeId}?autoplay=1&mute=1&rel=0`;
