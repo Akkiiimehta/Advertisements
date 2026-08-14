@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Project, getThumbnailUrl } from "@/lib/projects";
+import { Project, getThumbnailUrl, getHiResThumbnailUrl } from "@/lib/projects";
 
 interface ShowreelHeroProps {
   projects: Project[];
@@ -45,12 +45,25 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
         <motion.div
           key={active.id}
           className="showreel-hero-bg"
-          style={{ backgroundImage: `url(${getThumbnailUrl(active)})` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.1, ease: "easeInOut" }}
-        />
+        >
+          <img
+            className="showreel-hero-bg-img"
+            src={getHiResThumbnailUrl(active) ?? getThumbnailUrl(active) ?? undefined}
+            alt=""
+            draggable={false}
+            onError={(e) => {
+              // maxresdefault.jpg doesn't exist for every video — fall
+              // back to hqdefault rather than showing a broken image
+              // full-bleed across the hero.
+              const fallback = getThumbnailUrl(active);
+              if (fallback && e.currentTarget.src !== fallback) e.currentTarget.src = fallback;
+            }}
+          />
+        </motion.div>
       </AnimatePresence>
 
       <div className="showreel-hero-scrim" />
