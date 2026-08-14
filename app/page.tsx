@@ -124,7 +124,11 @@ export default function Home() {
       {introDone && (
         <>
           {landing ? (
-            <ShowreelLanding onOpen={handleOpen} onEnterArchive={() => setLanding(false)} />
+            <ShowreelLanding
+              onOpen={handleOpen}
+              onEnterArchive={() => setLanding(false)}
+              onContactClick={() => setNav("contact")}
+            />
           ) : (
             <>
               <motion.div
@@ -156,6 +160,7 @@ export default function Home() {
                   onNavChange={handleNavChange}
                   searchQuery={searchQuery}
                   onSearchChange={setSearchQuery}
+                  onShowreelClick={() => setLanding(true)}
                 />
               </motion.div>
 
@@ -176,12 +181,12 @@ export default function Home() {
                   />
                 )}
               </AnimatePresence>
-
-              <AnimatePresence>
-                {nav === "contact" && <InfoOverlay onClose={() => setNav("work")} />}
-              </AnimatePresence>
             </>
           )}
+
+          <AnimatePresence>
+            {nav === "contact" && <InfoOverlay onClose={() => setNav("work")} />}
+          </AnimatePresence>
 
           <AnimatePresence>
             {selected && (
