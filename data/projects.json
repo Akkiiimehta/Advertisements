@@ -253,17 +253,59 @@
       "tintColor": "#D6FF3F"
     },
     {
-  "id": "senior-producer-01",
-  "youtubeId": "NNfsu7mybGU",
-  "title": "Mumbai Bucket List",
-  "brand": "KFC India",
-  "role": "Senior Producer",
-  "productionHouse": "TODO — confirm production house",
-  "description": "Add a short description of the concept, shoot, or outcome.",
-  "credits": ["Director — Add name", "DOP — Add name"],
-  "tags": ["TODO", "TODO"],
-  "year": 2026,
-  "tintColor": "#D6FF3F"
-}
+      "id": "senior-producer-01",
+      "youtubeId": "NNfsu7mybGU",
+      "title": "Mumbai Bucket List",
+      "brand": "KFC India",
+      "role": "Senior Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Brand Film",
+        "Social"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+    {
+      "id": "kfc-05",
+      "youtubeId": "rGVFFqnc3o4",
+      "title": "KFC Shawowrama film",
+      "brand": "KFC India",
+      "role": "Associate Producer",
+      "productionHouse": "Engauge Media",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Sujay Gupta"
+      ],
+      "tags": [
+        "Brand Film",
+        "Social"
+      ],
+      "year": 2026,
+      "tintColor": "#E4572E"
+    },
+    {
+      "id": "kfc-06",
+      "youtubeId": "Gb9HhuTa6tQ",
+      "title": "KFC Shawowrama",
+      "brand": "KFC India",
+      "role": "Associate Producer",
+      "productionHouse": "Engauge Media",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Sujay Gupta"
+      ],
+      "tags": [
+        "Brand Film",
+        "Social"
+      ],
+      "year": 2026,
+      "tintColor": "#E4572E"
+    }
   ]
 }
