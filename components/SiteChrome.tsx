@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ViewMode } from "./types";
 import SoundToggle from "./SoundToggle";
-import { useOneTimeHint } from "@/lib/useOneTimeHint";
+import { useSeenFlag } from "@/lib/useSeenFlag";
 
 interface SiteChromeProps {
   view: ViewMode;
@@ -30,7 +30,7 @@ export default function SiteChrome({
   onShowreelClick,
 }: SiteChromeProps) {
   const [searchOpen, setSearchOpen] = useState(false);
-  const aboutBadge = useOneTimeHint("aki-about-badge-seen");
+  const aboutBadge = useSeenFlag("aki-about-badge-seen");
 
   function closeSearch() {
     setSearchOpen(false);
