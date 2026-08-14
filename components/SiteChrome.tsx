@@ -14,6 +14,7 @@ interface SiteChromeProps {
   onNavChange: (nav: "work" | "about" | "contact") => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  onShowreelClick?: () => void;
 }
 
 export default function SiteChrome({
@@ -25,6 +26,7 @@ export default function SiteChrome({
   onNavChange,
   searchQuery,
   onSearchChange,
+  onShowreelClick,
 }: SiteChromeProps) {
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -61,6 +63,17 @@ export default function SiteChrome({
           />
         </div>
       <span className="wordmark">AKI</span>
+      {onShowreelClick && (
+        <button
+          type="button"
+          className="showreel-back-btn"
+          onClick={onShowreelClick}
+          aria-label="Back to showreel"
+          title="Back to showreel"
+        >
+          &#8617; Showreel
+        </button>
+      )}
       <SoundToggle />
       </div>
 
