@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------
    Design tokens
    Dark editorial base + one accent (acid lime, #D6FF3F). Corner labels on
-   tiles use a monospace stack ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â a small nod to timecodes / call-sheet
+   tiles use a monospace stack Ã¢â‚¬â€ a small nod to timecodes / call-sheet
    stamps from the production world this portfolio comes out of.
    ------------------------------------------------------------------- */
 :root {
@@ -48,7 +48,7 @@ body {
 /* Wraps the grid/list content only (not SiteChrome) for the cinematic
    post-intro reveal in page.tsx. Needs explicit position+inset because
    animating scale/filter on it makes it the containing block for its
-   absolutely-positioned children (InfiniteGrid's .grid-viewport) Ã¢â‚¬â€ see
+   absolutely-positioned children (InfiniteGrid's .grid-viewport) â€” see
    the comment in page.tsx for why SiteChrome is deliberately excluded
    from this wrapper instead of sharing it. */
 .hero-reveal {
@@ -164,7 +164,7 @@ a {
   pointer-events: none;
 }
 
-/* Meta rows live in their own black zones above/below the media ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â never
+/* Meta rows live in their own black zones above/below the media Ã¢â‚¬â€ never
    on top of it, so the thumbnail itself stays completely clean. */
 .tile-meta-top,
 .tile-meta-bottom {
@@ -239,7 +239,7 @@ a {
   transition: background 200ms ease, color 200ms ease;
 }
 
-/* The media frame ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â always the same box, regardless of the source
+/* The media frame Ã¢â‚¬â€ always the same box, regardless of the source
    aspect ratio. object-fit: contain means the image/video is never
    cropped: a portrait clip letterboxes with black bars instead of
    losing its edges, which is what keeps every tile feeling identical
@@ -703,6 +703,17 @@ a {
   flex-shrink: 0;
 }
 
+/* Instagram Reels â€” the actual content is 9:16, not 16:9. Constrained
+   by width (not stretched full-bleed like the landscape version) so it
+   reads as a tall, centered player rather than an oddly narrow full-
+   width strip. */
+.modal-video-wrap-portrait {
+  aspect-ratio: 9 / 16;
+  width: auto;
+  max-height: 78vh;
+  margin: 0 auto;
+}
+
 .modal-video {
   position: absolute;
   inset: 0;
@@ -715,47 +726,6 @@ a {
   max-width: 760px;
   margin: 0 auto;
   padding: 28px 28px 40px;
-}
-
-/* Instagram Reels Ã¢â‚¬â€ IG's own desktop layout splits the reel and its
-   details side by side (reel left, scrollable details right) rather
-   than stacking a tall 9:16 player on top of the info. */
-.modal-panel-split {
-  flex-direction: row;
-  width: min(920px, 100%);
-  height: min(80vh, 860px);
-  max-height: 80vh;
-}
-
-.modal-split {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-}
-
-.modal-panel-split .modal-video-wrap-portrait {
-  position: relative;
-  aspect-ratio: 9 / 16;
-  width: auto;
-  height: 100%;
-  max-height: none;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.modal-details {
-  flex: 1 1 auto;
-  min-width: 320px;
-  height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.modal-details .modal-body {
-  max-width: none;
-  margin: 0;
 }
 
 .modal-title {
@@ -1127,38 +1097,6 @@ a {
     padding: 24px 18px 48px;
   }
 
-  /* Below the breakpoint there isn't room for a real side-by-side
-     split, so Reels fall back to the stacked layout: full-width
-     player on top, details scrolling underneath. */
-  .modal-panel-split {
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-  }
-
-  .modal-split {
-    flex-direction: column;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .modal-panel-split .modal-video-wrap-portrait {
-    width: 100%;
-    height: auto;
-    max-height: 60vh;
-    flex-shrink: 0;
-  }
-
-  .modal-details {
-    height: auto;
-    overflow-y: visible;
-  }
-
-  .modal-details .modal-body {
-    max-width: none;
-  }
-
   .info-panel {
     bottom: 90px;
     padding: 28px 22px;
@@ -1180,11 +1118,11 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About page (real route, not an overlay) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â clean, minimal, scrolls
+   About page (real route, not an overlay) Ã¢â‚¬â€ clean, minimal, scrolls
    normally. Headings use Sora Variable (see app/about/page.tsx import).
    ------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ intro bio modal (shown while the hero scene first loads)
+   About â€” intro bio modal (shown while the hero scene first loads)
    ------------------------------------------------------------------- */
 .about-intro-backdrop {
   position: fixed;
@@ -1197,7 +1135,7 @@ a {
   background: rgba(4, 4, 5, 0.86);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  /* Short fade Ã¢â‚¬â€ softens a same-tick mount+unmount for a returning
+  /* Short fade â€” softens a same-tick mount+unmount for a returning
      visitor whose sessionStorage check resolves almost immediately,
      without making a first-time visitor wait to see it. */
   animation: about-intro-fade-in 200ms ease;
@@ -1275,7 +1213,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ top loading progress bar
+   About â€” top loading progress bar
    ------------------------------------------------------------------- */
 .route-progress-track {
   position: fixed;
@@ -1372,7 +1310,7 @@ a {
   transition: opacity 500ms ease;
 }
 
-/* Applied once the real Spline scene reports loaded Ã¢â‚¬â€ fades this whole
+/* Applied once the real Spline scene reports loaded â€” fades this whole
    layer out so the live scene shows through, rather than cutting. */
 .about-spline-placeholder.is-loaded {
   opacity: 0;
@@ -1389,7 +1327,7 @@ a {
   -webkit-user-drag: none;
 }
 
-/* Persistent overlay wrapper Ã¢â‚¬â€ kept for structural consistency with
+/* Persistent overlay wrapper â€” kept for structural consistency with
    .about-spline-placeholder, though SkipAdChaser itself is
    position:fixed and doesn't actually depend on this for placement. */
 .about-spline-callouts {
@@ -1399,7 +1337,7 @@ a {
 }
 
 /* SkipAdChaser's own label. position:absolute (not fixed) is
-   deliberate Ã¢â‚¬â€ it's confined to and positioned relative to its nearest
+   deliberate â€” it's confined to and positioned relative to its nearest
    positioned ancestor (the hero box), which is what makes it scroll
    away naturally once the visitor scrolls past the hero, instead of
    trailing them down through the timeline/marquee below. Its actual
@@ -1508,7 +1446,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ career timeline
+   About â€” career timeline
    ------------------------------------------------------------------- */
 .timeline {
   position: relative;
@@ -1603,8 +1541,251 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ endless brand marquee
+   About â€” endless brand marquee
    ------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------
+   About â€” tools/systems built (self-projects showcase)
+   ------------------------------------------------------------------- */
+.built-projects {
+  margin: 96px 0 0;
+}
+
+.built-projects-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.built-projects-heading {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+  letter-spacing: -0.01em;
+  margin: 0 0 28px;
+}
+
+.built-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.built-project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+  min-height: 168px;
+}
+
+a.built-project-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(214, 255, 63, 0.4);
+  background: var(--surface-strong);
+}
+
+.built-project-card-pending {
+  opacity: 0.6;
+}
+
+.built-project-index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
+
+.built-project-name {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin: 10px 0 6px;
+}
+
+.built-project-description {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--fg-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.built-project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.built-project-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.built-project-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(244, 243, 238, 0.08);
+  color: var(--fg-faint);
+}
+
+.built-project-cta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+  white-space: nowrap;
+  transition: color 220ms ease, transform 220ms ease;
+}
+
+a.built-project-card:hover .built-project-cta {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+@media (max-width: 720px) {
+  .built-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   About â€” upcoming project countdown
+   ------------------------------------------------------------------- */
+.countdown-section {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-top: 96px;
+  overflow: hidden;
+}
+
+.countdown-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 24px;
+  background: #000;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.countdown-bar-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.countdown-bar-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+.countdown-body {
+  position: relative;
+  padding: 72px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* No real photo to blur, so the "cinematic backdrop" is built entirely
+     from layered radial gradients in the site's own palette instead â€”
+     soft accent-lime and warm glows drifting on a near-black base,
+     reads as an out-of-focus scene without needing an image asset. */
+  background:
+    radial-gradient(circle at 15% 20%, rgba(214, 255, 63, 0.14), transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(111, 91, 255, 0.16), transparent 40%),
+    radial-gradient(circle at 75% 85%, rgba(255, 91, 74, 0.12), transparent 45%),
+    radial-gradient(circle at 20% 90%, rgba(214, 255, 63, 0.08), transparent 50%),
+    var(--bg);
+}
+
+.countdown-heading {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  letter-spacing: -0.01em;
+  margin: 0 0 40px;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.countdown-digits {
+  display: flex;
+  gap: clamp(20px, 5vw, 56px);
+  margin-bottom: 32px;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.countdown-number {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  line-height: 1;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 30px rgba(214, 255, 63, 0.25);
+}
+
+.countdown-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+
+.countdown-date {
+  font-family: "Sora Variable", var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+  letter-spacing: -0.005em;
+  color: var(--fg);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .countdown-digits {
+    gap: 18px;
+  }
+
+  .countdown-body {
+    padding: 52px 20px;
+  }
+}
+
 .brand-marquee {
   width: 100vw;
   position: relative;
@@ -1695,659 +1876,5 @@ a {
 
   .about-content {
     padding: 40px 20px 80px;
-  }
-}
-
-/* ---------------------------------------------------------------------
-   Showreel landing (Netflix-style hero + rows)
-   ------------------------------------------------------------------- */
-.showreel-landing {
-  position: absolute;
-  inset: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  background: var(--bg);
-}
-
-.showreel-topbar {
-  position: absolute;
-  top: 22px;
-  left: 24px;
-  z-index: 3;
-}
-
-/* --- Hero ------------------------------------------------------------ */
-.showreel-hero {
-  position: relative;
-  width: 100%;
-  height: 92vh;
-  min-height: 460px;
-  overflow: hidden;
-  background: #000;
-}
-
-.showreel-hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.showreel-hero-bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-.showreel-hero-scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(9, 9, 11, 0.15) 0%, rgba(9, 9, 11, 0.15) 40%, rgba(9, 9, 11, 0.96) 96%),
-    linear-gradient(90deg, rgba(9, 9, 11, 0.85) 0%, rgba(9, 9, 11, 0.15) 55%);
-}
-
-.showreel-hero-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  width: 44px;
-  height: 68px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(12, 12, 13, 0.5);
-  color: var(--fg);
-  opacity: 0.7;
-  transition: opacity 180ms ease, background 180ms ease;
-}
-
-.showreel-hero-arrow:hover,
-.showreel-hero-arrow:focus-visible {
-  opacity: 1;
-  background: rgba(12, 12, 13, 0.82);
-}
-
-.showreel-hero-arrow-left {
-  left: 18px;
-}
-
-.showreel-hero-arrow-right {
-  right: 18px;
-}
-
-.showreel-hero-content {
-  position: absolute;
-  left: 0;
-  bottom: 64px;
-  width: min(640px, 88%);
-  padding: 0 40px;
-  z-index: 2;
-}
-
-.showreel-hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 10px;
-}
-
-.showreel-hero-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  font-size: clamp(2.2rem, 5.6vw, 4rem);
-  line-height: 1.02;
-  margin: 0 0 8px;
-}
-
-.showreel-hero-brand {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin: 0 0 18px;
-}
-
-.showreel-hero-desc {
-  font-size: 15px;
-  line-height: 1.6;
-  color: rgba(244, 243, 238, 0.82);
-  max-width: 52ch;
-  margin: 0 0 26px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.showreel-hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-}
-
-.showreel-play-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 12px 24px;
-  border-radius: 999px;
-  background: var(--fg);
-  color: #0c0c0d;
-  font-weight: 600;
-  font-size: 14px;
-  transition: transform 160ms ease, background 160ms ease;
-}
-
-.showreel-play-btn:hover,
-.showreel-play-btn:focus-visible {
-  background: var(--accent);
-  transform: scale(1.03);
-}
-
-.showreel-hero-tags {
-  display: flex;
-  gap: 6px;
-}
-
-.showreel-hero-tag {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(244, 243, 238, 0.28);
-  color: rgba(244, 243, 238, 0.75);
-}
-
-.showreel-hero-dots {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.showreel-hero-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(244, 243, 238, 0.35);
-  transition: background 200ms ease, transform 200ms ease;
-}
-
-.showreel-hero-dot.active {
-  background: var(--fg);
-  transform: scale(1.3);
-}
-
-/* --- Rows -------------------------------------------------------------- */
-.showreel-rows {
-  position: relative;
-  z-index: 2;
-  margin-top: -80px;
-  padding: 0 0 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-}
-
-.showreel-row-title {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  margin: 0 0 12px;
-  padding: 0 40px;
-}
-
-.showreel-row-track {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 4px 40px 10px;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
-}
-
-.showreel-row-track::-webkit-scrollbar {
-  height: 0;
-}
-
-/* Every card is the exact same fixed box, and the thumbnail inside it
-   uses object-fit: cover â€” unlike the main grid's object-fit: contain.
-   That's deliberate: rows read as uniform strips like Netflix's, so a
-   card can never look bigger or smaller just because its source image
-   happens to have (or lack) baked-in letterboxing. */
-.showreel-card {
-  position: relative;
-  flex: 0 0 260px;
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #000;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 200ms ease, border-color 200ms ease;
-}
-
-.showreel-card:hover,
-.showreel-card:focus-visible {
-  transform: translateY(-4px) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.28);
-  z-index: 1;
-}
-
-.showreel-card-media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  flex-shrink: 0;
-  overflow: hidden;
-}
-
-.showreel-card-thumb {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-.showreel-card-titlecard {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10%;
-  background: var(--tile-tint, var(--accent));
-}
-
-.showreel-card-titlecard span {
-  font-family: var(--font-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  font-size: 1rem;
-  line-height: 1.05;
-  color: var(--accent-ink);
-  text-align: center;
-}
-
-.showreel-card-caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 9px 11px;
-  background: #0c0c0d;
-}
-
-.showreel-card-name {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.showreel-card-year {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  color: var(--fg-faint);
-  flex-shrink: 0;
-}
-
-/* --- Enter archive CTA -------------------------------------------------- */
-.showreel-enter {
-  display: flex;
-  justify-content: center;
-  padding: 10px 0 70px;
-}
-
-.showreel-enter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 26px;
-  border-radius: 999px;
-  border: 1px solid rgba(244, 243, 238, 0.28);
-  color: var(--fg);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: background 160ms ease, border-color 160ms ease;
-}
-
-.showreel-enter-btn:hover,
-.showreel-enter-btn:focus-visible {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
-}
-
-@media (max-width: 720px) {
-  .showreel-hero {
-    height: 78vh;
-  }
-
-  .showreel-hero-content {
-    padding: 0 20px;
-    bottom: 40px;
-    width: 92%;
-  }
-
-  .showreel-rows {
-    margin-top: -50px;
-  }
-
-  .showreel-row-title,
-  .showreel-row-track {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .showreel-card {
-    flex-basis: 210px;
-  }
-}
-
-/* --- Showreel: back-to-showreel button (in SiteChrome, archive view) --- */
-.showreel-back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(244, 243, 238, 0.22);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
-}
-
-.showreel-back-btn:hover,
-.showreel-back-btn:focus-visible {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
-}
-
-/* --- Showreel: bottom-right project count badge (ShowreelChrome) ------- */
-.showreel-count-badge {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--fg-faint);
-}
-
-/* --- Showreel: flat 4-per-row grid (replaces per-brand rows for now) --- */
-.showreel-grid {
-  position: relative;
-  z-index: 2;
-  margin-top: -28px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  padding: 0 40px 60px;
-}
-
-@media (max-width: 1100px) {
-  .showreel-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 820px) {
-  .showreel-grid {
-    grid-template-columns: repeat(2, 1fr);
-    margin-top: -18px;
-    gap: 16px;
-    padding: 0 20px 50px;
-  }
-}
-
-@media (max-width: 480px) {
-  .showreel-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ---------------------------------------------------------------------
-   Discovery nudges: idle pulse + shimmer on "Full archive", and the
-   unified ShowreelNudgePopup (replaces the old separate tooltip +
-   nav badge â€” see ShowreelNudgePopup.tsx)
-   ------------------------------------------------------------------- */
-.site-nav-item {
-  position: relative;
-}
-
-.nav-badge {
-  position: absolute;
-  top: -6px;
-  right: -4px;
-  font-family: var(--font-mono);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  padding: 1.5px 4.5px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  line-height: 1.4;
-  animation: nav-badge-pulse 2.2s ease-in-out infinite;
-}
-
-@keyframes nav-badge-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.12);
-  }
-}
-
-.showreel-archive-btn {
-  position: relative;
-  overflow: hidden;
-}
-
-.showreel-archive-btn-label {
-  position: relative;
-  z-index: 1;
-}
-
-.showreel-archive-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.55) 50%,
-    transparent 100%
-  );
-  transform: skewX(-20deg);
-  animation: showreel-shimmer 3.2s ease-in-out infinite;
-}
-
-@keyframes showreel-shimmer {
-  0% {
-    left: -60%;
-  }
-  40%,
-  100% {
-    left: 130%;
-  }
-}
-
-.showreel-pulse {
-  animation: showreel-pulse-anim 1.8s ease-in-out infinite;
-}
-
-@keyframes showreel-pulse-anim {
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(212, 255, 62, 0.28);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 7px rgba(212, 255, 62, 0);
-  }
-}
-
-/* --- Unified nudge popup (centered, blurred backdrop) -------------- */
-.showreel-nudge-root {
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.showreel-nudge-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(4, 4, 5, 0.86);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.showreel-nudge-popup {
-  position: relative;
-  z-index: 1;
-  width: min(380px, 100%);
-  padding: 26px 26px 22px;
-  border-radius: 18px;
-  background: #101012;
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 0 1px rgba(214, 255, 63, 0.15), 0 24px 60px rgba(0, 0, 0, 0.5);
-  animation: showreel-nudge-in 420ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes showreel-nudge-in {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.showreel-nudge-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--fg-muted);
-  font-size: 16px;
-  line-height: 1;
-  transition: background 160ms ease, color 160ms ease;
-}
-
-.showreel-nudge-close:hover,
-.showreel-nudge-close:focus-visible {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-
-.showreel-nudge-heading {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  font-size: 20px;
-  color: var(--accent);
-  margin: 0 0 18px;
-  padding-right: 20px;
-}
-
-.showreel-nudge-row {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-right: 20px;
-}
-
-.showreel-nudge-text {
-  font-size: 14.5px;
-  line-height: 1.45;
-  color: var(--fg);
-  margin: 0;
-}
-
-.showreel-nudge-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  align-self: flex-start;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  font-weight: 600;
-  transition: transform 160ms ease, background 160ms ease;
-}
-
-.showreel-nudge-btn:hover,
-.showreel-nudge-btn:focus-visible {
-  background: var(--fg);
-  transform: scale(1.03);
-}
-
-.showreel-nudge-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 18px 0;
-}
-
-@media (max-width: 720px) {
-  .showreel-nudge-popup {
-    width: 100%;
-    padding: 22px 22px 20px;
   }
 }
