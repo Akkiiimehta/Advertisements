@@ -31,9 +31,9 @@ export default function InfoOverlay({ onClose }: InfoOverlayProps) {
         <span className="info-eyebrow">Contact</span>
         <h2 className="info-heading">Let&rsquo;s make something.</h2>
         <div className="info-body">
-          <p>Open to new projects, collaborations, and production partnerships.</p>
-          <a className="contact-email" href="mailto:hello@example.com">
-            hello@example.com
+          <p>Open to new projects, collaborations.</p>
+          <a className="contact-email" href="mailto:yashmehtaoffice@gmail.com">
+            yashmehtaoffice@gmail.com
           </a>
         </div>
       </motion.div>
