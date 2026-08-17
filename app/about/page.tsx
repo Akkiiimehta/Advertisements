@@ -7,12 +7,11 @@ import "@fontsource-variable/sora";
 import SoundToggle from "@/components/SoundToggle";
 import SkipAdChaser from "@/components/SkipAdChaser";
 import AboutTimeline from "@/components/AboutTimeline";
+import BuiltProjects from "@/components/BuiltProjects";
+import UpcomingCountdown from "@/components/UpcomingCountdown";
 import BrandMarquee from "@/components/BrandMarquee";
 import RouteProgressBar from "@/components/RouteProgressBar";
-// Intro bio popup — removed per request. The component itself is left
-// in place at components/AboutIntroModal.tsx if you want it back later;
-// just re-add this import and the <AboutIntroModal /> line below.
-// import AboutIntroModal from "@/components/AboutIntroModal";
+import AboutIntroModal from "@/components/AboutIntroModal";
 
 const AboutSplineScene = dynamic(() => import("@/components/AboutSplineScene"), {
   ssr: false,
@@ -43,6 +42,7 @@ const ABOUT_SEEN_KEY = "ad-portfolio:about-hero-seen";
 
 export default function AboutPage() {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [modalDismissed, setModalDismissed] = useState(false);
 
   // Defaults to true (show the loading UI) — matching what the server
   // always builds, since it has no sessionStorage to check. Flipped to
@@ -71,9 +71,12 @@ export default function AboutPage() {
     }
   }
 
+  const modalVisible = showLoadingUI && !heroLoaded && !modalDismissed;
+
   return (
     <main className="about-page">
       {showLoadingUI && <RouteProgressBar done={heroLoaded} />}
+      {modalVisible && <AboutIntroModal onSkip={() => setModalDismissed(true)} />}
 
       <div className="about-topbar">
         <Link href="/" className="about-back">
@@ -108,6 +111,8 @@ export default function AboutPage() {
         </div>
 
         <AboutTimeline />
+        <BuiltProjects />
+        <UpcomingCountdown />
         <BrandMarquee />
       </div>
     </main>
