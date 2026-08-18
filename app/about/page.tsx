@@ -88,17 +88,19 @@ export default function AboutPage() {
           <span className="about-eyebrow">About</span>
           <h1 className="about-heading">Yash &ldquo;Aki&rdquo; Mehta</h1>
           <p className="about-hero-lede">
-            Mumbai-based creative producer working across TVCs, brand films, and
-            social-first campaigns — from concept and casting through the final
-            export.
+              Mumbai-based AI Engineer who found his way into advertising as an Assistant Director & Creative Producer  
+          where analytical thinking meets creative instinct, 
+          turning complex problems into sharp ideas and bringing them to life across TVCs,
+          brand films, and social-first campaigns.
+
           </p>
         </div>
       </div>
 
       <div className="about-content">
         <p className="about-body-text">
-          Recent work spans QSR, quick-commerce, and performance-focused
-          campaigns, for brands including KFC India, Zepto, and MuscleBlaze.
+ Recent work spans QSR, quick-commerce, and performance-focused
+          campaigns, for brands including KFC India, Zepto, MuscleBlaze,etc..
         </p>
 
         <div className="about-links">
