@@ -22,9 +22,12 @@ export default function AboutIntroModal({ onSkip }: AboutIntroModalProps) {
         <span className="about-intro-eyebrow">While that loads</span>
         <h2 className="about-intro-heading">Yash &ldquo;Aki&rdquo; Mehta</h2>
         <p className="about-intro-text">
-        Mumbai-based AI Engineer who found his way into advertising as an Assistant Director & Creative Producer  where analytical thinking meets creative instinct, turning complex problems into sharp ideas and bringing them to life across TVCs, brand films, and social-first campaigns.
+        Mumbai-based AI Engineer who found his way into advertising as an Assistant Director & Creative Producer  
+          where analytical thinking meets creative instinct, 
+          turning complex problems into sharp ideas and bringing them to life across TVCs,
+          brand films, and social-first campaigns.
  Recent work spans QSR, quick-commerce, and performance-focused
-          campaigns, for brands including KFC India, Zepto, and MuscleBlaze.
+          campaigns, for brands including KFC India, Zepto, MuscleBlaze,etc..
         </p>
         <button className="about-intro-skip" onClick={onSkip}>
           Skip &rarr;
