@@ -13,7 +13,7 @@ const TIMELINE: TimelineEntry[] = [
   { year: "2023", role: "SMM Freelancer", org: "World Wide Media" },
   { year: "2024", role: "Social Media Secretary", org: "Pratishtha, SAKEC" },
   { year: "2024", role: "Production Freelancer", org: "Independent" },
-  { year: "2025", role: "Directorial & Production", org: "TODO — confirm company/project name" },
+  { year: "2025", role: "Directorial & Production", org: "Numerous Production Houses" },
 ];
 
 // Deliberately built with plain DOM APIs (IntersectionObserver + a
