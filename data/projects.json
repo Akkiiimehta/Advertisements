@@ -252,6 +252,46 @@
       "year": 2026,
       "tintColor": "#D6FF3F"
     },
+        {
+      "id": "ig-miniseries-03",
+      "instagramUrl": "https://www.instagram.com/reel/DcD5e1wNBTm/",
+      "coverImage": "/images/covers/bomcom-ep3.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+        {
+      "id": "ig-miniseries-04",
+      "instagramUrl": "https://www.instagram.com/reel/DcJCoBopvkM/",
+      "coverImage": "/images/covers/bomcom-ep4.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Add name",
+        "DOP — Add name"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
     {
       "id": "senior-producer-01",
       "youtubeId": "NNfsu7mybGU",
