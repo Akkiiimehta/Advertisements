@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import IntroAnimation, { INTRO_STORAGE_KEY } from "@/components/IntroAnimation";
 import InfiniteGrid from "@/components/InfiniteGrid";
-import ShowreelLanding from "@/components/ShowreelLanding";
 import ListView from "@/components/ListView";
 import SiteChrome from "@/components/SiteChrome";
 import FilterPanel from "@/components/FilterPanel";
@@ -54,8 +53,21 @@ export default function Home() {
   }, []);
 
   const [view, setView] = useState<ViewMode>("grid");
-  const [landing, setLanding] = useState(true);
   const [nav, setNav] = useState<NavItem>("work");
+
+  // The About page's "Get in touch" link points to "/#contact" — this
+  // is what actually reads that hash and opens the contact overlay.
+  // Without it, that link just lands back on the grid with nothing
+  // happening, since `nav` otherwise always starts as "work" regardless
+  // of the URL. Checked in an effect (not read directly into the
+  // useState above) for the same hydration-safety reason as the intro
+  // check above: window.location doesn't exist during the static
+  // export's server build, so the first render always has to match
+  // that "work" default, then update immediately after.
+  useEffect(() => {
+    if (window.location.hash === "#contact") setNav("contact");
+  }, []);
+
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [activeRoles, setActiveRoles] = useState<string[]>([]);
@@ -123,66 +135,55 @@ export default function Home() {
 
       {introDone && (
         <>
-          {landing ? (
-            <ShowreelLanding
-              onOpen={handleOpen}
-              onEnterArchive={() => setLanding(false)}
-              onContactClick={() => setNav("contact")}
+          <motion.div
+            className="hero-reveal"
+            initial={{ opacity: 0, scale: 1.08, filter: "blur(18px) brightness(0.4)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(1)" }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {view === "grid" ? (
+              <InfiniteGrid
+                grid={grid}
+                getProject={getProject}
+                dragEnabled={!selected && !filterOpen && nav === "work"}
+                openCellIndex={selected?.cellIndex ?? null}
+                onOpen={handleOpen}
+              />
+            ) : (
+              <ListView projects={filteredProjects} onOpen={handleOpen} />
+            )}
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.25 }}>
+            <SiteChrome
+              view={view}
+              onViewChange={setView}
+              onFilterClick={() => setFilterOpen((v) => !v)}
+              activeFilterCount={activeTags.length + activeRoles.length}
+              activeNav={nav}
+              onNavChange={handleNavChange}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
             />
-          ) : (
-            <>
-              <motion.div
-                className="hero-reveal"
-                initial={{ opacity: 0, scale: 1.08, filter: "blur(18px) brightness(0.4)" }}
-                animate={{ opacity: 1, scale: 1, filter: "blur(0px) brightness(1)" }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {view === "grid" ? (
-                  <InfiniteGrid
-                    grid={grid}
-                    getProject={getProject}
-                    dragEnabled={!selected && !filterOpen && nav === "work"}
-                    openCellIndex={selected?.cellIndex ?? null}
-                    onOpen={handleOpen}
-                  />
-                ) : (
-                  <ListView projects={filteredProjects} onOpen={handleOpen} />
-                )}
-              </motion.div>
+          </motion.div>
 
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.25 }}>
-                <SiteChrome
-                  view={view}
-                  onViewChange={setView}
-                  onFilterClick={() => setFilterOpen((v) => !v)}
-                  activeFilterCount={activeTags.length + activeRoles.length}
-                  activeNav={nav}
-                  onNavChange={handleNavChange}
-                  searchQuery={searchQuery}
-                  onSearchChange={setSearchQuery}
-                  onShowreelClick={() => setLanding(true)}
-                />
-              </motion.div>
-
-              <AnimatePresence>
-                {filterOpen && (
-                  <FilterPanel
-                    tags={allTags}
-                    activeTags={activeTags}
-                    onToggle={toggleTag}
-                    roles={ROLE_OPTIONS}
-                    activeRoles={activeRoles}
-                    onToggleRole={toggleRole}
-                    onClear={() => {
-                      setActiveTags([]);
-                      setActiveRoles([]);
-                    }}
-                    onClose={() => setFilterOpen(false)}
-                  />
-                )}
-              </AnimatePresence>
-            </>
-          )}
+          <AnimatePresence>
+            {filterOpen && (
+              <FilterPanel
+                tags={allTags}
+                activeTags={activeTags}
+                onToggle={toggleTag}
+                roles={ROLE_OPTIONS}
+                activeRoles={activeRoles}
+                onToggleRole={toggleRole}
+                onClear={() => {
+                  setActiveTags([]);
+                  setActiveRoles([]);
+                }}
+                onClose={() => setFilterOpen(false)}
+              />
+            )}
+          </AnimatePresence>
 
           <AnimatePresence>
             {nav === "contact" && <InfoOverlay onClose={() => setNav("work")} />}
