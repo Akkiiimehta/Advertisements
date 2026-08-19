@@ -1033,7 +1033,7 @@ a {
   gap: 12px;
 }
 
-.contact-email {
+.contact-email,.contact-phone {
   font-family: var(--font-mono);
   font-size: 15px;
   color: var(--accent);
