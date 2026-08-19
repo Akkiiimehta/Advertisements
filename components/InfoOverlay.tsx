@@ -36,6 +36,7 @@ export default function InfoOverlay({ onClose }: InfoOverlayProps) {
   <a className="contact-email" href="mailto:yashmehtaoffice@gmail.com">
     yashmehtaoffice@gmail.com
   </a>
+              <span> · </span>
   <a className="contact-phone" href="tel:+917021291405">
     +91 70212 91405
   </a>
