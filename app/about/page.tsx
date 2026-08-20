@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import "@fontsource-variable/sora";
@@ -9,6 +10,7 @@ import SkipAdChaser from "@/components/SkipAdChaser";
 import AboutTimeline from "@/components/AboutTimeline";
 import BrandMarquee from "@/components/BrandMarquee";
 import RouteProgressBar from "@/components/RouteProgressBar";
+import InfoOverlay from "@/components/InfoOverlay";
 // Intro bio popup — removed per request. The component itself is left
 // in place at components/AboutIntroModal.tsx if you want it back later;
 // just re-add this import and the <AboutIntroModal /> line below.
@@ -43,6 +45,7 @@ const ABOUT_SEEN_KEY = "ad-portfolio:about-hero-seen";
 
 export default function AboutPage() {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   // Defaults to true (show the loading UI) — matching what the server
   // always builds, since it has no sessionStorage to check. Flipped to
@@ -104,14 +107,17 @@ export default function AboutPage() {
         </p>
 
         <div className="about-links">
-          <Link href="/#contact" className="about-link-pill">
+          <button type="button" onClick={() => setContactOpen(true)} className="about-link-pill">
             Get in touch
-          </Link>
+          </button>
         </div>
 
         <AboutTimeline />
         <BrandMarquee />
       </div>
+      <AnimatePresence>
+        {contactOpen && <InfoOverlay onClose={() => setContactOpen(false)} />}
+      </AnimatePresence>
     </main>
   );
 }
