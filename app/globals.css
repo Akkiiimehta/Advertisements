@@ -1963,6 +1963,42 @@ a {
   overflow: hidden;
 }
 
+.showreel-card-media::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.22) 55%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.showreel-card:hover .showreel-card-media::after,
+.showreel-card:focus-visible .showreel-card-media::after {
+  opacity: 1;
+  animation: showreel-card-shimmer 700ms ease-out;
+}
+
+@keyframes showreel-card-shimmer {
+  from {
+    left: -75%;
+  }
+
+  to {
+    left: 140%;
+  }
+}
+
 .showreel-card-thumb {
   position: absolute;
   inset: 0;
