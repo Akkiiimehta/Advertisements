@@ -1160,8 +1160,39 @@ a {
   }
 
   .info-panel {
-    bottom: 90px;
+    left: 20px;
+    right: 20px;
+    bottom: 78px;
+    width: auto;
+    max-height: calc(100dvh - 140px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 28px 22px;
+    transform: none !important;
+  }
+
+  .info-body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .contact-email,
+  .contact-phone {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-size: 13px;
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .contact-details > span {
+    display: none;
   }
 
   .list-view-row {
@@ -1685,12 +1716,25 @@ a {
 
 @media (max-width: 720px) {
   .about-hero {
-    height: 52vh;
+    height: 58vh;
+    min-height: 500px;
   }
 
   .about-hero-text {
-    bottom: 28px;
+    bottom: 24px;
     padding: 0 20px;
+  }
+
+  .about-heading {
+    font-size: clamp(2.1rem, 9vw, 3rem);
+    line-height: 0.98;
+  }
+
+  .about-hero-lede {
+    font-size: 14px;
+    line-height: 1.45;
+    max-width: 100%;
+    margin-top: 10px;
   }
 
   .about-content {
@@ -2087,14 +2131,38 @@ a {
 }
 
 @media (max-width: 720px) {
+  .showreel-landing {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior-y: auto;
+  }
+
   .showreel-hero {
-    height: 78vh;
+    height: 78dvh;
+    min-height: 520px;
   }
 
   .showreel-hero-content {
     padding: 0 20px;
     bottom: 40px;
-    width: 92%;
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .showreel-hero-title {
+    font-size: clamp(2rem, 8.5vw, 3rem);
+    line-height: 1;
+  }
+
+  .showreel-hero-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 42ch;
+    margin-bottom: 20px;
   }
 
   .showreel-rows {
