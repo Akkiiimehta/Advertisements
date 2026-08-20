@@ -9,7 +9,7 @@ interface ShowreelHeroProps {
   onOpen: (project: Project, layoutId: string) => void;
 }
 
-const ROTATE_MS = 7000;
+const ROTATE_MS = 3500;
 
 export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
   const [index, setIndex] = useState(0);
