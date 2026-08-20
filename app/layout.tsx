@@ -3,7 +3,7 @@ import "./globals.css";
 import { SoundProvider } from "@/components/SoundProvider";
 
 export const metadata: Metadata = {
-  title: "Yash Mehta — Advertising Portfolio",
+  title: "Ads by Aki",
   description: "Creative production work across TVCs, brand films, and social campaigns.",
 };
 
