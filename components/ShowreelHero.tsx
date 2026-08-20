@@ -38,7 +38,6 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
   return (
     <div
       className="showreel-hero"
-      onClick={() => onOpen(active, layoutId)}
       onPointerEnter={() => (paused.current = true)}
       onPointerLeave={() => (paused.current = false)}
     >
@@ -74,11 +73,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
           <button
             type="button"
             className="showreel-hero-arrow showreel-hero-arrow-left"
-            onClick={(e) => {
-              e.stopPropagation();
-              paused.current = false;
-              goPrev();
-            }}
+            onClick={goPrev}
             aria-label="Previous featured project"
           >
             <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden>
@@ -94,11 +89,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
           <button
             type="button"
             className="showreel-hero-arrow showreel-hero-arrow-right"
-            onClick={(e) => {
-              e.stopPropagation();
-              paused.current = false;
-              goNext();
-            }}
+            onClick={goNext}
             aria-label="Next featured project"
           >
             <svg width="9" height="15" viewBox="0 0 9 15" fill="none" aria-hidden>
@@ -125,10 +116,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
             type="button"
             className="showreel-play-btn"
             layoutId={layoutId}
-            onClick={(e) => {
-              e.stopPropagation();
-              onOpen(active, layoutId);
-            }}
+            onClick={() => onOpen(active, layoutId)}
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M3 1.5L12 7L3 12.5V1.5Z" fill="currentColor" />
@@ -155,11 +143,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
                 aria-label={`Show ${p.title}`}
                 aria-selected={i === index}
                 role="tab"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  paused.current = false;
-                  setIndex(i);
-                }}
+                onClick={() => setIndex(i)}
               />
             ))}
           </div>
