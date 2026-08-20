@@ -76,6 +76,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
             className="showreel-hero-arrow showreel-hero-arrow-left"
             onClick={(e) => {
               e.stopPropagation();
+              paused.current = false;
               goPrev();
             }}
             aria-label="Previous featured project"
@@ -95,6 +96,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
             className="showreel-hero-arrow showreel-hero-arrow-right"
             onClick={(e) => {
               e.stopPropagation();
+              paused.current = false;
               goNext();
             }}
             aria-label="Next featured project"
@@ -155,6 +157,7 @@ export default function ShowreelHero({ projects, onOpen }: ShowreelHeroProps) {
                 role="tab"
                 onClick={(e) => {
                   e.stopPropagation();
+                  paused.current = false;
                   setIndex(i);
                 }}
               />
