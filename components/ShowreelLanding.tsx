@@ -20,6 +20,10 @@ interface ShowreelLandingProps {
 
 const featured = getFeaturedProjects(projects, 5);
 
+// Number of shot/in-post projects not yet public — shown as an empty
+// teaser card at the end of the grid. Bump this as the pipeline moves.
+const UPCOMING_PROJECTS_COUNT = 9;
+
 export default function ShowreelLanding({ onOpen, onEnterArchive, onContactClick }: ShowreelLandingProps) {
   return (
     <motion.div
@@ -38,7 +42,7 @@ export default function ShowreelLanding({ onOpen, onEnterArchive, onContactClick
       <ShowreelHero projects={featured} onOpen={onOpen} />
 
       {/* <ShowreelRows projects={projects} onOpen={onOpen} /> */}
-      <ShowreelGrid projects={projects} onOpen={onOpen} />
+      <ShowreelGrid projects={projects} onOpen={onOpen} upcomingCount={UPCOMING_PROJECTS_COUNT} />
 
       <div className="showreel-enter">
         <button type="button" className="showreel-enter-btn" onClick={onEnterArchive}>
