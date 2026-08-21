@@ -1043,12 +1043,38 @@ a {
 .lt-eyebrow {
   display: flex;
   align-items: center;
+  min-height: 20px;
+}
+
+.lt-eyebrow-label {
+  display: flex;
+  align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--fg-muted);
+}
+
+.lt-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fg-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.lt-back:hover {
+  color: var(--accent);
 }
 
 .lt-dot {
@@ -1078,6 +1104,8 @@ a {
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
   min-height: 300px;
   padding: 22px;
   border-radius: 18px;
@@ -1085,6 +1113,9 @@ a {
   background: var(--surface);
   color: var(--fg);
   text-decoration: none;
+  text-align: left;
+  font-family: inherit;
+  cursor: pointer;
   overflow: hidden;
   isolation: isolate;
   transition: border-color 0.25s ease, background 0.25s ease;
@@ -1236,17 +1267,6 @@ a {
   word-break: break-word;
 }
 
-.lt-footer {
-  margin-top: 28px;
-}
-
-.lt-footer-text {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--fg-faint);
-}
-
 /* ---------------------------------------------------------------------
    Responsive
    ------------------------------------------------------------------- */
@@ -1373,7 +1393,7 @@ a {
   }
 
   .lt-content {
-    padding: 84px 16px 32px;
+    padding: 84px 16px 48px;
     align-items: flex-start;
   }
 
@@ -1421,11 +1441,6 @@ a {
 
   .lt-pill {
     width: 100%;
-  }
-
-  .lt-footer {
-    margin-top: 20px;
-    padding-bottom: 8px;
   }
 
   .list-view-row {
