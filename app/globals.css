@@ -19,6 +19,26 @@
   --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-condensed: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Roboto Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --font-mix: "Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Self-hosted â€” only used for the "9 projects yet to be released" teaser
+   card, to match the rounded-geometric look of Spotify's Mix/Daily-Mix
+   covers. Files live at public/fonts/. */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 * {
@@ -2347,6 +2367,48 @@ a {
   font-size: 10.5px;
   color: var(--fg-faint);
   flex-shrink: 0;
+}
+
+/* --- Showreel: empty "more coming" teaser card at the end of the grid -- */
+.showreel-card-teaser {
+  cursor: default;
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: transparent;
+}
+
+.showreel-card-teaser:hover,
+.showreel-card-teaser:focus-visible {
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.showreel-card-teaser-media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10%;
+  text-align: center;
+}
+
+.showreel-card-teaser-number {
+  font-family: var(--font-mix);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-size: clamp(2.2rem, 6vw, 3rem);
+  line-height: 1;
+  color: var(--fg);
+}
+
+.showreel-card-teaser-label {
+  font-family: var(--font-mix);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
 }
 
 /* --- Enter archive CTA -------------------------------------------------- */
