@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------
    Design tokens
    Dark editorial base + one accent (acid lime, #D6FF3F). Corner labels on
-   tiles use a monospace stack ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â a small nod to timecodes / call-sheet
+   tiles use a monospace stack ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â a small nod to timecodes / call-sheet
    stamps from the production world this portfolio comes out of.
    ------------------------------------------------------------------- */
 :root {
@@ -48,7 +48,7 @@ body {
 /* Wraps the grid/list content only (not SiteChrome) for the cinematic
    post-intro reveal in page.tsx. Needs explicit position+inset because
    animating scale/filter on it makes it the containing block for its
-   absolutely-positioned children (InfiniteGrid's .grid-viewport) Ã¢â‚¬â€ see
+   absolutely-positioned children (InfiniteGrid's .grid-viewport) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â see
    the comment in page.tsx for why SiteChrome is deliberately excluded
    from this wrapper instead of sharing it. */
 .hero-reveal {
@@ -164,7 +164,7 @@ a {
   pointer-events: none;
 }
 
-/* Meta rows live in their own black zones above/below the media ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â never
+/* Meta rows live in their own black zones above/below the media ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â never
    on top of it, so the thumbnail itself stays completely clean. */
 .tile-meta-top,
 .tile-meta-bottom {
@@ -239,7 +239,7 @@ a {
   transition: background 200ms ease, color 200ms ease;
 }
 
-/* The media frame ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â always the same box, regardless of the source
+/* The media frame ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â always the same box, regardless of the source
    aspect ratio. object-fit: contain means the image/video is never
    cropped: a portrait clip letterboxes with black bars instead of
    losing its edges, which is what keeps every tile feeling identical
@@ -717,7 +717,7 @@ a {
   padding: 28px 28px 40px;
 }
 
-/* Instagram Reels Ã¢â‚¬â€ IG's own desktop layout splits the reel and its
+/* Instagram Reels ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â IG's own desktop layout splits the reel and its
    details side by side (reel left, scrollable details right) rather
    than stacking a tall 9:16 player on top of the info. */
 .modal-panel-split {
@@ -979,66 +979,272 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   Info overlay (About / Contact)
+   Let's Talk overlay (Contact)
    ------------------------------------------------------------------- */
-.info-overlay-root {
+.lt-root {
   position: fixed;
   inset: 0;
   z-index: 40;
 }
 
-.info-backdrop {
+.lt-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(4, 4, 5, 0.78);
+  background: rgba(6, 6, 7, 0.62);
+  backdrop-filter: blur(22px) saturate(1.1);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
 }
 
-.info-panel {
+.lt-close {
   position: fixed;
-  left: 50%;
-  bottom: 100px;
-  transform: translateX(-50%);
-  width: min(560px, calc(100vw - 40px));
-  padding: 40px 36px;
-  background: rgba(14, 14, 16, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  top: 24px;
+  right: 24px;
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  border-radius: 999px;
+  background: rgba(9, 9, 11, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
+  color: var(--fg);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.info-eyebrow {
+.lt-close:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  transform: scale(1.05);
+}
+
+.lt-content {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lt-inner {
+  width: min(1040px, 100%);
+  margin: auto;
+}
+
+.lt-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-mono);
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent);
+  letter-spacing: 0.12em;
+  color: var(--fg-muted);
 }
 
-.info-heading {
+.lt-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.lt-heading {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  margin: 10px 0 18px;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  margin: 14px 0 32px;
+  max-width: 16ch;
 }
 
-.info-body {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--fg-muted);
+.lt-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.lt-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  min-height: 300px;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.contact-email,.contact-phone {
+.lt-card:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+  background: var(--surface-strong);
+}
+
+.lt-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-mono);
-  font-size: 15px;
-  color: var(--accent);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-muted);
+  position: relative;
+  z-index: 2;
+}
+
+.lt-tag-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--fg);
+  display: inline-block;
+}
+
+.lt-card-title {
+  position: relative;
+  z-index: 2;
+  margin-top: 12px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.lt-arrow {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  align-self: flex-start;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.lt-card:hover .lt-arrow {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Collaboration card â€” image slideshow revealed on hover/tap */
+.lt-card-image {
+  justify-content: flex-end;
+}
+
+.lt-card-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.lt-card-image:hover .lt-card-media,
+.lt-card-image:active .lt-card-media {
+  opacity: 1;
+}
+
+.lt-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6) saturate(1.05);
+}
+
+.lt-card-media-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.15) 32%, rgba(9, 9, 11, 0.15) 60%, rgba(9, 9, 11, 0.85) 100%);
+}
+
+.lt-card-media-label {
+  position: absolute;
+  left: 22px;
+  bottom: 68px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-muted);
+}
+
+/* Anything-else card â€” email / WhatsApp pills */
+.lt-links {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.lt-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  color: var(--fg);
   text-decoration: none;
-  width: fit-content;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.lt-pill:hover {
+  border-color: var(--accent);
+  background: rgba(214, 255, 63, 0.1);
+}
+
+.lt-pill-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-faint);
+}
+
+.lt-pill-value {
+  font-size: 12px;
+  color: var(--fg);
+  word-break: break-word;
+}
+
+.lt-footer {
+  margin-top: 28px;
+}
+
+.lt-footer-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
 }
 
 /* ---------------------------------------------------------------------
@@ -1159,40 +1365,67 @@ a {
     max-width: none;
   }
 
-  .info-panel {
-    left: 20px;
-    right: 20px;
-    bottom: 78px;
-    width: auto;
-    max-height: calc(100dvh - 140px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 28px 22px;
-    transform: none !important;
+  .lt-close {
+    top: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
   }
 
-  .info-body {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  .contact-email,
-  .contact-phone {
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    font-size: 13px;
-  }
-
-  .contact-details {
-    display: flex;
-    flex-direction: column;
+  .lt-content {
+    padding: 84px 16px 32px;
     align-items: flex-start;
-    gap: 4px;
-    min-width: 0;
   }
 
-  .contact-details > span {
-    display: none;
+  .lt-heading {
+    max-width: none;
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+    margin-bottom: 24px;
+  }
+
+  .lt-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lt-card {
+    min-height: 190px;
+    padding: 18px;
+  }
+
+  .lt-card-image {
+    min-height: 240px;
+  }
+
+  /* No hover on touch devices â€” keep a faint static peek of the image
+     so the card doesn't look completely empty, then bloom to full
+     opacity on tap via the existing :active rule above. */
+  @media (hover: none) {
+    .lt-card-media {
+      opacity: 0.22;
+    }
+  }
+
+  .lt-card-title {
+    font-size: 1.05rem;
+  }
+
+  .lt-card-media-label {
+    bottom: 60px;
+    left: 18px;
+  }
+
+  .lt-links {
+    flex-direction: column;
+  }
+
+  .lt-pill {
+    width: 100%;
+  }
+
+  .lt-footer {
+    margin-top: 20px;
+    padding-bottom: 8px;
   }
 
   .list-view-row {
@@ -1211,11 +1444,11 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About page (real route, not an overlay) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â clean, minimal, scrolls
+   About page (real route, not an overlay) ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â clean, minimal, scrolls
    normally. Headings use Sora Variable (see app/about/page.tsx import).
    ------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ intro bio modal (shown while the hero scene first loads)
+   About ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â intro bio modal (shown while the hero scene first loads)
    ------------------------------------------------------------------- */
 .about-intro-backdrop {
   position: fixed;
@@ -1228,7 +1461,7 @@ a {
   background: rgba(4, 4, 5, 0.86);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  /* Short fade Ã¢â‚¬â€ softens a same-tick mount+unmount for a returning
+  /* Short fade ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â softens a same-tick mount+unmount for a returning
      visitor whose sessionStorage check resolves almost immediately,
      without making a first-time visitor wait to see it. */
   animation: about-intro-fade-in 200ms ease;
@@ -1306,7 +1539,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ top loading progress bar
+   About ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â top loading progress bar
    ------------------------------------------------------------------- */
 .route-progress-track {
   position: fixed;
@@ -1403,7 +1636,7 @@ a {
   transition: opacity 500ms ease;
 }
 
-/* Applied once the real Spline scene reports loaded Ã¢â‚¬â€ fades this whole
+/* Applied once the real Spline scene reports loaded ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â fades this whole
    layer out so the live scene shows through, rather than cutting. */
 .about-spline-placeholder.is-loaded {
   opacity: 0;
@@ -1420,7 +1653,7 @@ a {
   -webkit-user-drag: none;
 }
 
-/* Persistent overlay wrapper Ã¢â‚¬â€ kept for structural consistency with
+/* Persistent overlay wrapper ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â kept for structural consistency with
    .about-spline-placeholder, though SkipAdChaser itself is
    position:fixed and doesn't actually depend on this for placement. */
 .about-spline-callouts {
@@ -1430,7 +1663,7 @@ a {
 }
 
 /* SkipAdChaser's own label. position:absolute (not fixed) is
-   deliberate Ã¢â‚¬â€ it's confined to and positioned relative to its nearest
+   deliberate ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â it's confined to and positioned relative to its nearest
    positioned ancestor (the hero box), which is what makes it scroll
    away naturally once the visitor scrolls past the hero, instead of
    trailing them down through the timeline/marquee below. Its actual
@@ -1539,7 +1772,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ career timeline
+   About ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â career timeline
    ------------------------------------------------------------------- */
 .timeline {
   position: relative;
@@ -1634,7 +1867,7 @@ a {
 }
 
 /* ---------------------------------------------------------------------
-   About Ã¢â‚¬â€ endless brand marquee
+   About ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â endless brand marquee
    ------------------------------------------------------------------- */
 .brand-marquee {
   width: 100vw;
@@ -1974,7 +2207,7 @@ a {
 }
 
 /* Every card is the exact same fixed box, and the thumbnail inside it
-   uses object-fit: cover â€” unlike the main grid's object-fit: contain.
+   uses object-fit: cover Ã¢â‚¬â€ unlike the main grid's object-fit: contain.
    That's deliberate: rows read as uniform strips like Netflix's, so a
    card can never look bigger or smaller just because its source image
    happens to have (or lack) baked-in letterboxing. */
@@ -2246,7 +2479,7 @@ a {
 /* ---------------------------------------------------------------------
    Discovery nudges: idle pulse + shimmer on "Full archive", and the
    unified ShowreelNudgePopup (replaces the old separate tooltip +
-   nav badge â€” see ShowreelNudgePopup.tsx)
+   nav badge Ã¢â‚¬â€ see ShowreelNudgePopup.tsx)
    ------------------------------------------------------------------- */
 .site-nav-item {
   position: relative;
