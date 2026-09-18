@@ -22,6 +22,25 @@
     "tintColor": "#D6FF3F"
   },
   "projects": [
+     {
+      "id": "Flite-01",
+      "youtubeId": "vb4uYtV_x50",
+      "title": "Flite Monsoon Collection",
+      "brand": "Relaxo",
+      "role": "2nd AD",
+      "productionHouse": "Off Road Films Production",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Fahad Pathan",
+        "DOP — Prayash Sharma"
+      ],
+      "tags": [
+        "Sports",
+        "Performance"
+      ],
+      "year": 2026,
+      "tintColor": "#FF5B4A"
+    },
     {
       "id": "muscleblaze-01",
       "youtubeId": "eDN-MNkfEww",
@@ -31,8 +50,8 @@
       "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+        "Director — Rohan S. Patne",
+        "DOP — Heet Nandu"
       ],
       "tags": [
         "Sports",
@@ -50,8 +69,8 @@
       "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+       "Director — Rohan S. Patne",
+        "DOP — Heet Nandu"
       ],
       "tags": [
         "Sports",
@@ -69,8 +88,8 @@
       "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+      "Director — Rohan S. Patne",
+        "DOP — Heet Nandu"
       ],
       "tags": [
         "Sports",
@@ -258,8 +277,8 @@
       "productionHouse": "TODO — confirm production house",
       "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+      "Director — Tadgola",
+        "DOP — Krish Surana"
       ],
       "tags": [
         "Social",
@@ -278,8 +297,8 @@
       "productionHouse": "TODO — confirm production house",
       "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+          "Director — Tadgola",
+        "DOP — Krish Surana"
       ],
       "tags": [
         "Social",
@@ -298,8 +317,8 @@
       "productionHouse": "TODO — confirm production house",
       "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+     "Director — Tadgola",
+        "DOP — Krish Surana"
       ],
       "tags": [
         "Social",
@@ -318,8 +337,8 @@
       "productionHouse": "TODO — confirm production house",
       "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+        "Director — Tadgola",
+        "DOP — Krish Surana"
       ],
       "tags": [
         "Social",
@@ -337,8 +356,8 @@
       "productionHouse": "TODO — confirm production house",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+        "Director — X",
+        "DOP — X"
       ],
       "tags": [
         "Brand Film",
