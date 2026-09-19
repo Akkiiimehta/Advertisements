@@ -347,6 +347,126 @@
       "year": 2026,
       "tintColor": "#D6FF3F"
     },
+     {
+      "id": "ig-miniseries-05",
+      "instagramUrl": "https://www.instagram.com/p/DcQx5oKNwg5/",
+      "coverImage": "/images/covers/bomcom-ep5.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Tadgola",
+        "DOP — Krish Surana"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+     {
+      "id": "ig-miniseries-06",
+      "instagramUrl": "https://www.instagram.com/p/DcV6tz8JLl6/",
+      "coverImage": "/images/covers/bomcom-ep6.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Tadgola",
+        "DOP — Krish Surana"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+     {
+      "id": "ig-miniseries-07",
+      "instagramUrl": "https://www.instagram.com/p/DcbFROMNJF9/",
+      "coverImage": "/images/covers/bomcom-ep7.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Tadgola",
+        "DOP — Krish Surana"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+       {
+      "id": "ig-miniseries-08",
+      "instagramUrl": "https://www.instagram.com/p/DcgPmJLJoTJ/",
+      "coverImage": "/images/covers/bomcom-ep8.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Tadgola",
+        "DOP — Krish Surana"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+      {
+      "id": "ig-miniseries-09",
+      "instagramUrl": "https://www.instagram.com/p/Dcn-KshN_3A/",
+      "coverImage": "/images/covers/bomcom-ep9.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Tadgola",
+        "DOP — Krish Surana"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
+    {
+      "id": "ig-miniseries-10",
+      "instagramUrl": "https://www.instagram.com/p/DctGZgRJqFy/",
+      "coverImage": "/images/covers/bomcom-ep10.jpg",
+      "title": "BOM COM",
+      "brand": "R&S",
+      "role": "Associate Producer",
+      "productionHouse": "TODO — confirm production house",
+      "description": "Part of a mini-series with two influencers. Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Tadgola",
+        "DOP — Krish Surana"
+      ],
+      "tags": [
+        "Social",
+        "Influencer"
+      ],
+      "year": 2026,
+      "tintColor": "#D6FF3F"
+    },
     {
       "id": "senior-producer-01",
       "youtubeId": "NNfsu7mybGU",
