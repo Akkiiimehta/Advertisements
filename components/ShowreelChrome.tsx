@@ -35,7 +35,7 @@ export default function ShowreelChrome({ onEnterArchive, onContactClick, totalCo
       </div>
 
       <div className="chrome-corner chrome-top-center">
-        <span className="tagline">Producing ads that don&rsquo;t look like ads.</span>
+        <span className="tagline"> Ads that don&rsquo;t look like ads.</span>
       </div>
 
       <div className="chrome-corner chrome-top-right">
