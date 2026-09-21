@@ -91,7 +91,7 @@ export default function AboutPage() {
           <span className="about-eyebrow">About</span>
           <h1 className="about-heading">Yash &ldquo;Aki&rdquo; Mehta</h1>
           <p className="about-hero-lede">
-              Mumbai-based AI Engineer who found his way into advertising as an Assistant Director & Creative Producer  
+              Mumbai-based AI Engineer who found his way into advertising as an Assistant Director & Production,  
           where analytical thinking meets creative instinct, 
           turning complex problems into sharp ideas and bringing them to life across TVCs,
           brand films, and social-first campaigns.
