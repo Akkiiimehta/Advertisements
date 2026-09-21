@@ -27,6 +27,11 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
   // start playback immediately.
   const [soundOn, setSoundOn] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  useEffect(() => {
+  if (audioRef.current) {
+    audioRef.current.volume = 0.3;
+  }
+}, []);
 
   // Mirrors soundOn but read inside duck/unduck via .current instead of
   // closure capture — a modal's effect calls unduckAudio() from a
