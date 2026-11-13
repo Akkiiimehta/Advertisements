@@ -8,6 +8,7 @@ interface Brand {
 }
 
 // Edit this array to update the brand list — shows up in both rows.
+
 const BRANDS: Brand[] = [
   { name: "Pampers", logo: "/images/logos/pampers.png" },
   { name: "Dabur", logo: "/images/logos/dabur.png" },
@@ -15,7 +16,12 @@ const BRANDS: Brand[] = [
   { name: "KFC", logo: "/images/logos/kfc.png" },
   { name: "Flite", logo: "/images/logos/flite.png" },
   { name: "MuscleBlaze", logo: "/images/logos/muscleblaze.png" },
+  { name: "Bumble", logo: "/images/logos/Bumble.png" },
+  { name: "JUNGLE", logo: "/images/logos/JUNGLE.png" },
+  { name: "Offroad", logo: "/images/logos/Offroad.png" },
+  { name: "Zurich Kotak General Insurance", logo: "/images/logos/ZKGI.png" },
 ];
+
 
 function BrandItem({ brand }: { brand: Brand }) {
   if (brand.logo) {
