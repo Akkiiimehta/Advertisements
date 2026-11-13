@@ -41,12 +41,71 @@
       "year": 2026,
       "tintColor": "#FF5B4A"
     },
+      {
+      "id": "Flite-02",
+      "youtubeId": "h9pq5jMi7Xs",
+      "title": "Flite Buckle Collection",
+      "brand": "Relaxo",
+      "role": "2nd AD",
+      "productionHouse": "Off Road Films Production",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Fahad Pathan",
+        "DOP — Prayash Sharma"
+      ],
+      "tags": [
+        "Sports",
+        "Performance"
+      ],
+      "year": 2026,
+      "tintColor": "#FF5B4A"
+    },
+       {
+      "id": "Bumble Beeline x Jhanvi Kapoor",
+      "youtubeId": "RnlF87ZfEjI",
+      "title": "Bumble Beeline",
+      "brand": "Bumble",
+      "role": "2nd AD",
+      "productionHouse": "Eo2_Exp Production",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Miti Shroff",
+        "DOP — "
+      ],
+      "tags": [
+        "FMCG",
+        "Lifestyle"
+      ],
+      "year": 2026,
+      "tintColor": "#FF5B4A"
+    },
+
+       {
+      "id": "Bumble Beeline x Rebel",
+      "youtubeId": "SUdwa0kEFVM",
+      "title": "Bumble Beeline",
+      "brand": "Bumble",
+      "role": "2nd AD",
+      "productionHouse": "Eo2_Exp Production",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Miti Shroff",
+        "DOP — "
+      ],
+      "tags": [
+        "FMCG",
+        "Lifestyle"
+      ],
+      "year": 2026,
+      "tintColor": "#FF5B4A"
+    },
+     
     {
       "id": "muscleblaze-01",
       "youtubeId": "eDN-MNkfEww",
       "title": "MuscleBlaze — Campaign Film I",
       "brand": "MuscleBlaze",
-      "role": "Production Manager",
+      "role": "2nd AD",
       "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
@@ -65,7 +124,7 @@
       "youtubeId": "PTInRsim1AQ",
       "title": "MuscleBlaze — Campaign Film II",
       "brand": "MuscleBlaze",
-      "role": "Production Manager",
+      "role": "2nd AD",
       "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
@@ -84,7 +143,7 @@
       "youtubeId": "_1XepF6s4u4",
       "title": "MuscleBlaze — Campaign Film III",
       "brand": "MuscleBlaze",
-      "role": "Production Manager",
+      "role": "2nd AD",
       "productionHouse": "OpenEnded Production",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
@@ -103,7 +162,7 @@
       "youtubeId": "rRK2gmvGJIs",
       "title": "Zepto x Pampers",
       "brand": "Zepto",
-      "role": "In House Production",
+      "role": "Production",
       "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
@@ -118,16 +177,16 @@
       "tintColor": "#6F5BFF"
     },
     {
-      "id": "zepto-who",
+      "id": "zepto-whd",
       "youtubeId": "85M2lnbg854",
       "title": "Zepto — Campaign Film",
       "brand": "Zepto",
-      "role": "In House Production",
+      "role": "Production",
       "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+        "Director — Jigar",
+        "DOP — Parth Sayani"
       ],
       "tags": [
         "Quick Commerce",
@@ -141,12 +200,12 @@
       "youtubeId": "fW-SkhfC3RM",
       "title": "Zepto x Dabur",
       "brand": "Zepto",
-      "role": "In House Production",
+      "role": " Production",
       "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+        "Director — Ankul Singh",
+        "DOP — Yash Mayekar"
       ],
       "tags": [
         "Quick Commerce",
@@ -160,12 +219,12 @@
       "youtubeId": "7niNm-mbHzM",
       "title": "Zepto — Stationery",
       "brand": "Zepto",
-      "role": "In House Production",
+      "role": " Production",
       "productionHouse": "TFF / Deadline Day Films",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
-        "DOP — Add name"
+        "Director — Ankul Singh",
+        "DOP — Yash Mayekar"
       ],
       "tags": [
         "Quick Commerce",
@@ -179,7 +238,7 @@
       "youtubeId": "XFTxhmepqrk",
       "title": "Double Chicken Dynamite",
       "brand": "KFC India",
-      "role": "Director's Assistant",
+      "role": "DA/AD",
       "productionHouse": "Engauge Media",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
@@ -198,11 +257,11 @@
       "youtubeId": "iBM6zHoLSAE",
       "title": "Match Made in Madness",
       "brand": "KFC India",
-      "role": "Director's Assistant",
+      "role": "DA/AD",
       "productionHouse": "Engauge Media",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
+        "Director — Sujay Gupta",
         "DOP — Add name"
       ],
       "tags": [
@@ -217,11 +276,11 @@
       "youtubeId": "XKlnA33Mv08",
       "title": "Double Chicken Dynamite II",
       "brand": "KFC India",
-      "role": "Director's Assistant",
+      "role": "DA/AD",
       "productionHouse": "Engauge Media",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
-        "Director — Add name",
+        "Director — Sujay Gupta",
         "DOP — Add name"
       ],
       "tags": [
@@ -467,12 +526,50 @@
       "year": 2026,
       "tintColor": "#D6FF3F"
     },
+       {
+      "id": "Lakme x Aneet",
+      "youtubeId": "Iqr3XIhSnUQ",
+      "title": "Lakme Tint ",
+      "brand": "Lakme",
+      "role": "2nd AD",
+      "productionHouse": "Off Road Films Production",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Jessica Sadana",
+        "DOP — "
+      ],
+      "tags": [
+        "Beauty",
+        "Performance"
+      ],
+      "year": 2026,
+      "tintColor": "#FF5B4A"
+    },
+      {
+      "id": "Zurich x Kotak General Insurance",
+      "youtubeId": "Iqr3XIhSnUQ",
+      "title": "ZKGI ",
+      "brand": "ZKGI",
+      "role": "2nd AD",
+      "productionHouse": "Jungle",
+      "description": "Add a short description of the concept, shoot, or outcome.",
+      "credits": [
+        "Director — Bruce st Clair",
+        "DOP — Vikas Nowlakha "
+      ],
+      "tags": [
+        "Insurance",
+        "Life"
+      ],
+      "year": 2026,
+      "tintColor": "#FF5B4A"
+    },
     {
       "id": "senior-producer-01",
       "youtubeId": "NNfsu7mybGU",
       "title": "Mumbai Bucket List",
       "brand": "KFC India",
-      "role": "Senior Producer",
+      "role": "Producer",
       "productionHouse": "TODO — confirm production house",
       "description": "Add a short description of the concept, shoot, or outcome.",
       "credits": [
