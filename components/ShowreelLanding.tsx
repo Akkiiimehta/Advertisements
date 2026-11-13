@@ -22,7 +22,7 @@ const featured = getFeaturedProjects(projects, 5);
 
 // Number of shot/in-post projects not yet public — shown as an empty
 // teaser card at the end of the grid. Bump this as the pipeline moves.
-const UPCOMING_PROJECTS_COUNT = 9;
+const UPCOMING_PROJECTS_COUNT = 8;
 
 export default function ShowreelLanding({ onOpen, onEnterArchive, onContactClick }: ShowreelLandingProps) {
   return (
