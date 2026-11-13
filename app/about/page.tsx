@@ -103,7 +103,7 @@ export default function AboutPage() {
       <div className="about-content">
         <p className="about-body-text">
  Recent work spans QSR, quick-commerce, and performance-focused
-          campaigns, for brands including KFC India, Zepto, MuscleBlaze,etc..
+          campaigns, for brands including Bumble, Kotak, Lakme, KFC, Zepto, MuscleBlaze,etc..
         </p>
 
         <div className="about-links">
